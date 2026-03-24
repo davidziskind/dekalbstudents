@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 27 Schools | DeKalb Schools Coalition</title>
+  <meta name="description" content="Find your school and see its status in DeKalb County's School Alignment Process.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">
+        <span class="nav-logo-top">DeKalb Schools Coalition</span>
+        <span class="nav-logo-sub">Fighting for Our Neighborhood Schools</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="schools.html" class="active">The 27 Schools</a></li>
+        <li><a href="issue.html">The Issue</a></li>
+        <li><a href="updates.html">Updates</a></li>
+        <li><a href="contact.html">Join Us</a></li>
+        <li class="nav-cta"><a href="take-action.html">Take Action</a></li>
+      </ul>
+      <button class="nav-burger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <nav class="mobile-nav">
+      <a href="index.html">Home</a>
+      <a href="schools.html">The 27 Schools</a>
+      <a href="issue.html">The Issue</a>
+      <a href="updates.html">Updates</a>
+      <a href="contact.html">Join Us</a>
+      <a href="take-action.html">Take Action →</a>
+    </nav>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background:var(--navy);padding:48px 0 40px;border-bottom:4px solid var(--amber);">
+    <div class="container">
+      <span class="eyebrow">DeKalb SAP — School Alignment Process</span>
+      <h1 style="color:var(--white);margin:8px 0 16px;">The <em style="color:var(--amber);font-style:italic;">27 Schools</em></h1>
+      <p style="color:rgba(255,255,255,0.7);max-width:600px;font-size:1.05rem;">
+        DeKalb County's SAP proposes to close or consolidate 27 neighborhood schools.
+        Find your school below, see its current status, and access community resources.
+      </p>
+    </div>
+  </div>
+
+  <!-- Status Legend -->
+  <div style="background:var(--cream);border-bottom:1px solid var(--gray-light);padding:16px 0;">
+    <div class="container" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
+      <span style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Status Key:</span>
+      <span class="badge badge-red"><span class="status-dot dot-red"></span>Closure Proposed</span>
+      <span class="badge badge-orange"><span class="status-dot dot-orange"></span>Consolidation Proposed</span>
+      <span class="badge badge-yellow"><span class="status-dot dot-yellow"></span>Under Review</span>
+      <span class="badge badge-green"><span class="status-dot dot-green"></span>Monitoring</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Filters -->
+      <div class="filter-bar">
+        <label for="filter-search">Search:</label>
+        <input type="text" id="filter-search" placeholder="School name…" style="min-width:180px;">
+
+        <label for="filter-status">Status:</label>
+        <select id="filter-status">
+          <option value="">All Statuses</option>
+          <option value="closure">Closure Proposed</option>
+          <option value="consolidation">Consolidation Proposed</option>
+          <option value="review">Under Review</option>
+          <option value="monitoring">Monitoring</option>
+        </select>
+
+        <label for="filter-cluster">Cluster:</label>
+        <select id="filter-cluster">
+          <option value="">All Clusters</option>
+        </select>
+
+        <span class="filter-count" id="school-count"></span>
+      </div>
+
+      <!-- Grid -->
+      <div class="schools-grid" id="schools-grid"></div>
+
+      <!-- No results -->
+      <div id="no-results" class="hidden" style="text-align:center;padding:60px 0;color:var(--gray);">
+        <div style="font-size:2rem;margin-bottom:12px;">🏫</div>
+        <p>No schools match your filters. <button onclick="resetFilters()" style="background:none;border:none;color:var(--amber);cursor:pointer;font-weight:600;text-decoration:underline;">Reset filters</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Don't see your school? -->
+  <section style="background:var(--amber-pale);border-top:1px solid rgba(232,160,32,0.3);padding:40px 0;">
+    <div class="container" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+      <div style="flex:1;min-width:280px;">
+        <h3 style="margin-bottom:6px;">Don't see your school, or want to help?</h3>
+        <p style="margin:0;color:var(--text-light);">
+          We need parent volunteers to lead each school's page — writing the story, gathering data,
+          and connecting local families. Reach out if you want to own your school's presence here.
+        </p>
+      </div>
+      <a href="contact.html" class="btn btn-primary" style="flex-shrink:0;">Get Involved →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">DeKalb Schools Coalition</div>
+          <p style="font-size:0.88rem;margin-bottom:16px;">
+            A parent-led, volunteer coalition united against DeKalb County's School Alignment Process.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h5>Schools</h5>
+          <ul>
+            <li><a href="schools.html">All 27 Schools</a></li>
+            <li><a href="schools.html">Closure Proposed</a></li>
+            <li><a href="schools.html">Consolidation</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Resources</h5>
+          <ul>
+            <li><a href="issue.html">The Issue</a></li>
+            <li><a href="updates.html">Updates</a></li>
+            <li><a href="take-action.html">Take Action</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>DeKalb Links</h5>
+          <ul>
+            <li><a href="https://www.dekalbschoolsga.org" target="_blank" rel="noopener">DCSD Website</a></li>
+            <li><a href="https://www.dekalbschoolsga.org/board-of-education/" target="_blank" rel="noopener">Board of Education</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 DeKalb Schools Coalition.</span>
+        <span>Built by parents, for parents.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/schools.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    initFilters('schools-grid', 'school-count');
+
+    // Check for URL param to pre-filter
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('status')) {
+      const sel = document.getElementById('filter-status');
+      if (sel) { sel.value = params.get('status'); sel.dispatchEvent(new Event('change')); }
+    }
+
+    function resetFilters() {
+      ['filter-search','filter-status','filter-cluster'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { el.value = ''; el.dispatchEvent(new Event('change')); }
+      });
+    }
+  </script>
+</body>
+</html>
