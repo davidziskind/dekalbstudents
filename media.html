@@ -6,6 +6,185 @@
   <title>In The News | DeKalb Schools Coalition</title>
   <meta name="description" content="News coverage of DeKalb County's Student Assignment Project (SAP) and the parent coalition's fight to keep neighborhood schools open.">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .news-card-auto {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .news-card-auto:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+      color: inherit;
+    }
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      background: var(--cream);
+      flex-shrink: 0;
+    }
+    .card-thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--gray-light) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .card-thumb-pub {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--navy);
+      opacity: 0.2;
+    }
+    .card-body {
+      padding: 18px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .card-publisher {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+    .card-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gray);
+    }
+    .card-title {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      line-height: 1.55;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .card-readmore {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+    }
+    .card-readmore::after { content: ' →'; }
+    .news-card-auto:hover .card-readmore,
+    .featured-card:hover .card-readmore { color: var(--amber); }
+
+    /* Skeleton shimmer */
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, var(--gray-light) 25%, #e8e4de 50%, var(--gray-light) 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: var(--radius);
+    }
+    .skeleton-card {
+      min-height: 320px;
+      border-radius: var(--radius);
+    }
+
+    /* Featured (horizontal) card */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      border: 1px solid var(--gray-light);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      min-height: 240px;
+    }
+    .featured-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+      color: inherit;
+    }
+    .featured-card .card-thumb,
+    .featured-card .card-thumb-placeholder {
+      aspect-ratio: unset;
+      height: 100%;
+      width: 100%;
+    }
+    .featured-card .card-body { padding: 28px 32px; }
+    .featured-card .card-title { font-size: 1.35rem; margin-bottom: 12px; }
+    .featured-card .card-desc { -webkit-line-clamp: 4; }
+    @media (max-width: 720px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-card .card-thumb,
+      .featured-card .card-thumb-placeholder { aspect-ratio: 16/9; height: auto; }
+    }
+    .featured-skeleton {
+      height: 280px;
+      border-radius: var(--radius);
+    }
+
+    /* Error card */
+    .card-error {
+      border: 1px dashed var(--gray-light);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-light);
+      font-size: 0.88rem;
+      transition: background 0.15s;
+    }
+    .card-error:hover { background: var(--cream); color: var(--text-light); }
+    .card-error-url { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gray); word-break: break-all; }
+
+    .auto-news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .empty-state { text-align: center; padding: 80px 0; color: var(--gray); }
+    .empty-state .icon { font-size: 3rem; margin-bottom: 16px; }
+    .press-bar { background: var(--amber-pale); border-bottom: 1px solid rgba(232,160,32,0.3); padding: 14px 0; }
+  </style>
 </head>
 <body>
 
@@ -42,21 +221,21 @@
   <!-- Page Header -->
   <div style="background:var(--navy);padding:48px 0 40px;border-bottom:4px solid var(--amber);">
     <div class="container">
-      <span class="eyebrow">Press & Media Coverage</span>
+      <span class="eyebrow">Press &amp; Media Coverage</span>
       <h1 style="color:var(--white);margin:8px 0 16px;">In The News</h1>
       <p style="color:rgba(255,255,255,0.7);max-width:640px;font-size:1.05rem;">
         News coverage of DeKalb County's Student Assignment Project (SAP) and the community's
-        fight to protect neighborhood schools. Coverage from local and regional outlets.
+        fight to protect neighborhood schools.
       </p>
     </div>
   </div>
 
-  <!-- Media Contact Bar -->
-  <div style="background:var(--amber-pale);border-bottom:1px solid rgba(232,160,32,0.3);padding:14px 0;">
-    <div class="container" style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-      <span style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Press Inquiries:</span>
+  <!-- Press Contact Bar -->
+  <div class="press-bar">
+    <div class="container" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+      <span style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);white-space:nowrap;">Press Inquiries:</span>
       <span style="font-size:0.88rem;color:var(--text);">
-        Media representatives — contact us at
+        Media representatives — contact
         <a href="mailto:UPDATE@email.com" style="color:var(--amber);font-weight:600;">UPDATE@email.com</a>
         for interviews, statements, or additional information.
       </span>
@@ -67,125 +246,29 @@
   <section class="section">
     <div class="container">
 
-      <!-- ── HOW TO ADD ARTICLES ─────────────────────────────────────────────
-           To add a new news item, copy one of the <a class="news-card"> blocks
-           below and update:
-             - href            → the URL of the article
-             - data-outlet     → publication name (e.g., "AJC", "Atlanta Journal-Constitution")
-             - data-date       → publish date (e.g., "April 3, 2026")
-             - The pub-logo    → short name shown in the placeholder image area
-             - h3              → article headline
-             - p               → 1–2 sentence excerpt or your summary of the article
-
-           For the FEATURED (top) card, use the .news-card-featured class.
-           For grid cards, use plain .news-card inside .news-grid.
-      ─────────────────────────────────────────────────────────────────── -->
-
-      <!-- Featured Article -->
-      <div style="margin-bottom:48px;">
-        <span class="eyebrow">Featured Coverage</span>
+      <div id="featured-section" style="margin-bottom:56px;">
+        <span class="eyebrow">Featured</span>
         <h2 style="margin-bottom:24px;">Most Recent</h2>
-
-        <a href="#" target="_blank" rel="noopener"
-           class="news-card news-card-featured"
-           data-outlet="UPDATE: Publication Name"
-           data-date="UPDATE DATE">
-          <div class="news-card-image-placeholder">
-            <div class="pub-logo">UPDATE</div>
-            <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Publication Name</span>
-          </div>
-          <div class="news-card-body">
-            <div class="news-card-meta">
-              <span class="news-card-outlet">UPDATE: Publication Name</span>
-              <span style="color:var(--gray-light);">·</span>
-              <span class="news-card-date">UPDATE DATE</span>
-            </div>
-            <h3>UPDATE: Paste the full article headline here</h3>
-            <p>
-              UPDATE: Paste a short excerpt from the article (1–3 sentences), or write a brief
-              summary of what the article covers and why it's relevant to the coalition's work.
-            </p>
-            <span class="news-card-cta">Read the full article</span>
-          </div>
-        </a>
+        <div id="featured-container">
+          <div class="skeleton featured-skeleton"></div>
+        </div>
       </div>
 
-      <!-- All Coverage Grid -->
-      <div>
+      <div id="archive-section">
         <span class="eyebrow">All Coverage</span>
         <h2 style="margin-bottom:24px;">Press Archive</h2>
-
-        <div class="news-grid" id="news-grid">
-
-          <!-- ── ARTICLE CARD — Copy & paste this block to add a new article ─ -->
-          <a href="#" target="_blank" rel="noopener" class="news-card"
-             data-outlet="UPDATE: Publication" data-date="UPDATE DATE">
-            <div class="news-card-image-placeholder">
-              <div class="pub-logo">UPDATE</div>
-              <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Publication</span>
-            </div>
-            <div class="news-card-body">
-              <div class="news-card-meta">
-                <span class="news-card-outlet">UPDATE: Publication</span>
-                <span style="color:var(--gray-light);">·</span>
-                <span class="news-card-date">UPDATE DATE</span>
-              </div>
-              <h3>UPDATE: Article Headline</h3>
-              <p>UPDATE: Short excerpt or summary of the article.</p>
-              <span class="news-card-cta">Read article</span>
-            </div>
-          </a>
-          <!-- ── END ARTICLE CARD ────────────────────────────────────────── -->
-
-          <!-- Article 2 -->
-          <a href="#" target="_blank" rel="noopener" class="news-card"
-             data-outlet="UPDATE: Publication" data-date="UPDATE DATE">
-            <div class="news-card-image-placeholder">
-              <div class="pub-logo">UPDATE</div>
-              <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Publication</span>
-            </div>
-            <div class="news-card-body">
-              <div class="news-card-meta">
-                <span class="news-card-outlet">UPDATE: Publication</span>
-                <span style="color:var(--gray-light);">·</span>
-                <span class="news-card-date">UPDATE DATE</span>
-              </div>
-              <h3>UPDATE: Article Headline</h3>
-              <p>UPDATE: Short excerpt or summary of the article.</p>
-              <span class="news-card-cta">Read article</span>
-            </div>
-          </a>
-
-          <!-- Article 3 -->
-          <a href="#" target="_blank" rel="noopener" class="news-card"
-             data-outlet="UPDATE: Publication" data-date="UPDATE DATE">
-            <div class="news-card-image-placeholder">
-              <div class="pub-logo">UPDATE</div>
-              <span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Publication</span>
-            </div>
-            <div class="news-card-body">
-              <div class="news-card-meta">
-                <span class="news-card-outlet">UPDATE: Publication</span>
-                <span style="color:var(--gray-light);">·</span>
-                <span class="news-card-date">UPDATE DATE</span>
-              </div>
-              <h3>UPDATE: Article Headline</h3>
-              <p>UPDATE: Short excerpt or summary of the article.</p>
-              <span class="news-card-cta">Read article</span>
-            </div>
-          </a>
-
-        </div><!-- /#news-grid -->
-      </div>
-
-      <!-- Empty state (shown when no articles yet) -->
-      <div id="no-articles" style="display:none;text-align:center;padding:60px 0;">
-        <div style="font-size:2.5rem;margin-bottom:12px;">📰</div>
-        <h3>Coverage coming soon</h3>
-        <p style="color:var(--text-light);">
-          Are you a journalist covering the DeKalb SAP? We'd love to talk.
-          <a href="mailto:UPDATE@email.com">Get in touch.</a>
-        </p>
+        <div class="auto-news-grid" id="news-grid">
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton skeleton-card"></div>
+        </div>
+        <div class="empty-state hidden" id="empty-state">
+          <div class="icon">📰</div>
+          <h3>Coverage coming soon</h3>
+          <p style="margin-top:8px;">
+            Add article URLs to the <code>ARTICLES</code> array at the top of <code>media.html</code>.
+          </p>
+        </div>
       </div>
 
     </div>
@@ -205,19 +288,17 @@
           <h3>Coalition Backgrounder</h3>
           <p>A one-page overview of the coalition, our key arguments, and the schools affected.</p>
           <a href="#" class="card-link">Download PDF</a>
-          <!-- UPDATE href to your Google Drive or PDF link -->
         </div>
         <div class="card">
           <div style="font-size:1.5rem;margin-bottom:10px;">📊</div>
           <h3>Data Summary</h3>
           <p>Key enrollment figures, utilization rates, and financial projections — with our analysis of where the district's numbers don't hold up.</p>
           <a href="#" class="card-link">View Data</a>
-          <!-- UPDATE href -->
         </div>
         <div class="card">
           <div style="font-size:1.5rem;margin-bottom:10px;">🎙️</div>
           <h3>Interview Requests</h3>
-          <p>Parent spokespeople are available for interviews. We can connect you with voices from specific schools or the coalition leadership.</p>
+          <p>Parent spokespeople are available for interviews across multiple affected schools and clusters.</p>
           <a href="mailto:UPDATE@email.com" class="card-link">Request Interview</a>
         </div>
       </div>
@@ -232,7 +313,7 @@
           <div class="footer-logo">DeKalb Schools Coalition</div>
           <p style="font-size:0.88rem;margin-bottom:16px;">
             A parent-led, volunteer coalition united against DeKalb County's
-            Student Assignment Project (SAP). We are not affiliated with or funded by DCSD.
+            Student Assignment Project (SAP). Not affiliated with or funded by DCSD.
           </p>
         </div>
         <div class="footer-col">
@@ -272,5 +353,175 @@
 
   <script src="data/schools.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  /* ================================================================
+     IN THE NEWS — How to add an article
+     ================================================================
+
+     1. Find the ARTICLES array below.
+     2. Add the article URL as a new item at the TOP of the list:
+          { url: "https://www.ajc.com/news/your-article" },
+     3. Save and push to GitHub. Done — the preview loads automatically.
+
+     The page calls the free Microlink API to fetch the article's
+     Open Graph image, headline, description, and publisher,
+     just like LinkedIn or Facebook link previews.
+
+     FIRST article = featured card (large, top of page).
+     All others = grid cards below.
+
+     ── OPTIONAL OVERRIDES ────────────────────────────────────────
+     If a preview comes in with wrong/missing data, add override fields:
+
+       { url: "https://...",
+         title:       "Custom headline to show",
+         description: "Custom excerpt to show",
+         image:       "https://direct-image-url.jpg",
+         publisher:   "AJC" }
+
+     Any field you provide skips the auto-fetch for that field only.
+     ================================================================ */
+
+  const ARTICLES = [
+    // ── Add newest articles at the TOP ────────────────────────────
+    // { url: "https://www.ajc.com/..." },
+    // { url: "https://www.wsbtv.com/..." },
+    // { url: "https://www.fox5atlanta.com/..." },
+    // { url: "https://www.dekalbcountydnews.com/..." },
+    // { url: "https://www.wabe.org/..." },
+    // ─────────────────────────────────────────────────────────────
+  ];
+
+  /* ── Rendering engine — no edits needed below ──────────────────── */
+
+  const MICROLINK_API = "https://api.microlink.io?url=";
+
+  function fmtDate(s) {
+    if (!s) return null;
+    try {
+      return new Date(s).toLocaleDateString('en-US',
+        { month: 'long', day: 'numeric', year: 'numeric' });
+    } catch { return null; }
+  }
+
+  function placeholder(pub) {
+    return `<div class="card-thumb-placeholder">
+      <div class="card-thumb-pub">${pub || 'NEWS'}</div>
+    </div>`;
+  }
+
+  function safePub(pub) {
+    return pub ? `<span class="card-publisher">${pub}</span><span style="color:var(--gray-light)">·</span>` : '';
+  }
+
+  function buildFeatured(d, url) {
+    const thumb = d.image
+      ? `<img class="card-thumb" src="${d.image}" alt="" loading="eager"
+             onerror="this.outerHTML=\`${placeholder(d.publisher).replace(/`/g,"'")}\`">`
+      : placeholder(d.publisher);
+    const date = fmtDate(d.date);
+    return `<a href="${url}" target="_blank" rel="noopener" class="featured-card">
+      <div>${thumb}</div>
+      <div class="card-body">
+        <div class="card-meta">
+          ${safePub(d.publisher)}
+          ${date ? `<span class="card-date">${date}</span>` : ''}
+        </div>
+        <div class="card-title">${d.title || 'Read Article'}</div>
+        <div class="card-desc">${d.description || ''}</div>
+        <span class="card-readmore">Read the full article</span>
+      </div>
+    </a>`;
+  }
+
+  function buildCard(d, url) {
+    const thumb = d.image
+      ? `<img class="card-thumb" src="${d.image}" alt="" loading="lazy"
+             onerror="this.outerHTML=\`${placeholder(d.publisher).replace(/`/g,"'")}\`">`
+      : placeholder(d.publisher);
+    const date = fmtDate(d.date);
+    return `<a href="${url}" target="_blank" rel="noopener" class="news-card-auto">
+      ${thumb}
+      <div class="card-body">
+        <div class="card-meta">
+          ${safePub(d.publisher)}
+          ${date ? `<span class="card-date">${date}</span>` : ''}
+        </div>
+        <div class="card-title">${d.title || 'Read Article'}</div>
+        <div class="card-desc">${d.description || ''}</div>
+        <span class="card-readmore">Read article</span>
+      </div>
+    </a>`;
+  }
+
+  function buildError(url) {
+    let domain = url;
+    try { domain = new URL(url).hostname.replace('www.', ''); } catch {}
+    return `<a href="${url}" target="_blank" rel="noopener" class="card-error">
+      <span style="font-size:1.4rem;flex-shrink:0;">🔗</span>
+      <div>
+        <div style="font-weight:600;color:var(--navy);margin-bottom:4px;">Preview unavailable</div>
+        <div class="card-error-url">${domain}</div>
+        <div style="font-size:0.75rem;margin-top:4px;color:var(--gray);">Click to open article</div>
+      </div>
+      <span style="margin-left:auto;color:var(--amber);font-weight:700;">→</span>
+    </a>`;
+  }
+
+  async function fetchPreview(item) {
+    const url = typeof item === 'string' ? item : item.url;
+    const ov  = typeof item === 'object' ? item : {};
+    if (ov.title && ov.description) return { ...ov, url };
+    try {
+      const r = await fetch(MICROLINK_API + encodeURIComponent(url));
+      if (!r.ok) throw new Error(r.status);
+      const j = await r.json();
+      if (j.status !== 'success') throw new Error('api');
+      const d = j.data;
+      return {
+        url,
+        title:       ov.title       || d.title       || null,
+        description: ov.description || d.description || null,
+        image:       ov.image       || (d.image?.url) || null,
+        publisher:   ov.publisher   || d.publisher   || null,
+        date:        ov.date        || d.date        || null,
+      };
+    } catch (e) {
+      return { url, error: true, ...ov };
+    }
+  }
+
+  async function render() {
+    const featuredEl  = document.getElementById('featured-container');
+    const gridEl      = document.getElementById('news-grid');
+    const emptyEl     = document.getElementById('empty-state');
+    const featSection = document.getElementById('featured-section');
+    const archSection = document.getElementById('archive-section');
+
+    if (!ARTICLES.length) {
+      featuredEl.innerHTML = '';
+      gridEl.innerHTML = '';
+      featSection.style.display = 'none';
+      emptyEl.classList.remove('hidden');
+      return;
+    }
+
+    // Fetch all in parallel
+    const all = await Promise.all(ARTICLES.map(fetchPreview));
+    const [first, ...rest] = all;
+
+    // Featured card
+    featuredEl.innerHTML = first.error ? buildError(first.url) : buildFeatured(first, first.url);
+
+    // Archive grid
+    if (rest.length === 0) {
+      archSection.style.display = 'none';
+    } else {
+      gridEl.innerHTML = rest.map(p => p.error ? buildError(p.url) : buildCard(p, p.url)).join('');
+    }
+  }
+
+  render();
+  </script>
 </body>
 </html>
