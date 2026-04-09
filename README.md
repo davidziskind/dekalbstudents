@@ -1,6 +1,6 @@
 # DeKalb Schools Coalition Website
 
-A parent-led coalition website fighting against DeKalb County's School Alignment Process (SAP).
+A parent-led coalition website fighting against DeKalb County's Student Assignment Project (SAP).
 Built as a static HTML/CSS/JS site — no server required. Hosted on GitHub Pages.
 
 ---

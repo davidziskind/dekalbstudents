@@ -8,13 +8,6 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <!-- Alert Banner -->
-  <div class="alert-banner">
-    ⚠️ <strong>Urgent:</strong> The next Board of Education vote is scheduled for
-    <strong>UPDATE DATE</strong>. <a href="take-action.html">Find out how to show up →</a>
-  </div>
-
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="nav-inner">
@@ -22,24 +15,26 @@
         <span class="nav-logo-top">DeKalb Schools Coalition</span>
         <span class="nav-logo-sub">Fighting for Our Neighborhood Schools</span>
       </a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="schools.html">The 27 Schools</a></li>
+            <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
         <li><a href="issue.html">The Issue</a></li>
+        <li><a href="schools.html">The 27 Schools</a></li>
+        <li><a href="financial.html">Financial Impact</a></li>
         <li><a href="updates.html">Updates</a></li>
-        <li><a href="contact.html">Join Us</a></li>
+        <li><a href="media.html">In The News</a></li>
         <li class="nav-cta"><a href="take-action.html">Take Action</a></li>
       </ul>
       <button class="nav-burger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
-    <nav class="mobile-nav">
+        <nav class="mobile-nav">
       <a href="index.html">Home</a>
-      <a href="schools.html">The 27 Schools</a>
       <a href="issue.html">The Issue</a>
+      <a href="schools.html">The 27 Schools</a>
+      <a href="financial.html">Financial Impact</a>
       <a href="updates.html">Updates</a>
-      <a href="contact.html">Join Us</a>
+      <a href="media.html">In The News</a>
       <a href="take-action.html">Take Action →</a>
     </nav>
   </nav>
@@ -51,11 +46,11 @@
         <div class="hero-content">
           <div class="hero-tag">
             <span class="status-dot dot-red" style="animation: pulse 1.5s infinite;"></span>
-            DeKalb County School Alignment Process · 2025–2026
+            DeKalb County Student Assignment Project (SAP) · 2025–2026
           </div>
           <h1>They want to close<br><em>27 schools.</em><br>We say no.</h1>
           <p>
-            DeKalb County School District's School Alignment Process proposes
+            DeKalb County's Student Assignment Project (SAP) proposes
             to close or consolidate dozens of neighborhood schools, displacing
             thousands of students. We're parents, teachers, and community members
             united to fight back — with facts, not just feelings.
@@ -66,7 +61,7 @@
           </div>
         </div>
         <div class="hero-stat-card">
-          <h3>Coalition Status Board</h3>
+          <h3>SAP Status Board</h3>
           <div class="stat-row">
             <span class="stat-label">Schools Affected</span>
             <span class="stat-val amber">27</span>
@@ -91,12 +86,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Ticker -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-inner" id="ticker-inner">
-      <!-- filled by JS -->
-    </div>
   </div>
 
   <!-- Stats Bar -->
@@ -250,7 +239,7 @@
           <div class="footer-logo">DeKalb Schools Coalition</div>
           <p style="font-size:0.88rem;margin-bottom:16px;">
             A parent-led, volunteer coalition united against the DeKalb County
-            School District's School Alignment Process. We are not affiliated
+            School District's Student Assignment Project (SAP). We are not affiliated
             with or funded by DCSD.
           </p>
           <p style="font-size:0.8rem;opacity:0.5;">
@@ -266,22 +255,23 @@
             <li><a href="schools.html?status=review">Under Review</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <h5>Resources</h5>
           <ul>
             <li><a href="issue.html">The Issue</a></li>
+            <li><a href="financial.html">Financial Impact</a></li>
             <li><a href="updates.html">Updates</a></li>
+            <li><a href="media.html">In The News</a></li>
             <li><a href="take-action.html">Take Action</a></li>
-            <li><a href="contact.html">Join Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-        <div class="footer-col">
+                <div class="footer-col">
           <h5>DeKalb Links</h5>
           <ul>
             <li><a href="https://www.dekalbschoolsga.org" target="_blank" rel="noopener">DCSD Website</a></li>
             <li><a href="https://www.dekalbschoolsga.org/board-of-education/" target="_blank" rel="noopener">Board of Education</a></li>
-            <li><a href="#" target="_blank" rel="noopener">SAP Documents</a></li>
-            <li><a href="#" target="_blank" rel="noopener">Meeting Calendar</a></li>
+            <li><a href="https://www.dekalbschoolsga.org/divisions/access-and-opportunity/sap" target="_blank" rel="noopener">Student Assignment Project (SAP)</a></li>
           </ul>
         </div>
       </div>
@@ -308,24 +298,8 @@
       document.getElementById('hero-closure-count').textContent = counts.closure || 0;
       document.getElementById('hero-consol-count').textContent  = counts.consolidation || 0;
       document.getElementById('hero-review-count').textContent  = counts.review || 0;
-
-      // Ticker
-      const ticker = document.getElementById('ticker-inner');
-      if (ticker) {
-        const items = SCHOOLS.map(s => {
-          const cfg = STATUS_CONFIG[s.status];
-          return `<span class="ticker-item">${cfg.dot} ${s.name}<span class="ticker-sep">|</span></span>`;
-        });
-        // Duplicate for seamless loop
-        ticker.innerHTML = items.join('') + items.join('');
-      }
+  })();
     })();
   </script>
-  <style>
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
-    }
-  </style>
 </body>
 </html>
