@@ -1038,3 +1038,32 @@ p:last-child { margin-bottom: 0; }
   box-shadow: none;
   transform: none;
 }
+
+/* ── New status colours (expansion, move, not_closing) ──────── */
+.badge-blue    { background: #eaf3fc; color: #1a6fb3; border-left: 3px solid #1a6fb3; }
+.badge-purple  { background: #f3eefa; color: #7b3fbe; border-left: 3px solid #7b3fbe; }
+.dot-blue      { background: #1a6fb3; }
+.dot-purple    { background: #7b3fbe; }
+
+.school-card-status.blue   { background: #1a6fb3; }
+.school-card-status.purple { background: #7b3fbe; }
+
+/* not_closing: green with strikethrough effect on stripe */
+.badge-green.not-closing-badge,
+.school-card[data-status="not_closing"] .badge-green {
+  background: var(--green-pale);
+  color: var(--green);
+  border-left: 3px solid var(--green);
+}
+
+/* schools.html filter — add "on closure list" toggle */
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  cursor: pointer;
+  user-select: none;
+}
+.filter-toggle input { cursor: pointer; }
