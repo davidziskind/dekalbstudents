@@ -10,10 +10,10 @@ Built as a static HTML/CSS/JS site — no server required. Hosted on GitHub Page
 ```
 dekalb-coalition/
 ├── index.html              ← Home page
-├── schools.html            ← All 27 Schools directory (filterable)
+├── schools.html            ← All 30 schools directory (filterable)
 ├── issue.html              ← Background on the SAP & our arguments
 ├── take-action.html        ← Petition, email templates, meeting info
-├── updates.html            ← News & updates feed
+├── updates.html            ← Legacy (content moved to media.html)
 ├── contact.html            ← Join / volunteer sign-up
 │
 ├── schools/
@@ -27,15 +27,24 @@ dekalb-coalition/
 │   └── main.js             ← Shared JS (mobile nav, utilities)
 │
 └── data/
-    └── schools.js          ← ⭐ MASTER DATA FILE — all 27 schools
+    └── schools.js          ← ⭐ MASTER DATA FILE — all 30 schools
 ```
 
 ---
 
+## What's in This Version (v4)
+- 30 schools in data/schools.js (7 named, 23 pending placeholders)
+- Pending cards show "Update Coming Soon" badge — non-clickable until page is built
+- Take Action: real Change.org petition, all 7 board members with emails, DCSD meeting links
+- Issue page: real timeline, real board quotes, HPM context
+- Financial page: real copy from community reporting
+- In The News: auto-preview cards via Microlink API
+- Updates page removed from nav (content consolidated into In The News)
+
 ## Getting Started
 
 ### 1. Update the school data
-Edit `data/schools.js` — this is your single source of truth for all 27 schools.
+Edit `data/schools.js` — this is your single source of truth for all 30 schools.
 The schools directory page and home page both render from this file automatically.
 
 Each school object looks like this:

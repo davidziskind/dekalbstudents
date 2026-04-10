@@ -6,6 +6,93 @@
   <title>Take Action | DeKalb Schools Coalition</title>
   <meta name="description" content="Sign the petition, email your Board rep, attend meetings, and make your voice heard before DeKalb County votes on school closures.">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .action-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 32px;
+      align-items: start;
+      padding: 32px;
+      border: 1px solid var(--gray-light);
+      border-radius: var(--radius);
+      background: var(--white);
+      margin-bottom: 32px;
+    }
+    @media (max-width: 600px) {
+      .action-step { grid-template-columns: 1fr; gap: 16px; }
+    }
+    .action-num {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .action-rank {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+    .board-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    .board-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .board-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--gray-light);
+      font-size: 0.9rem;
+      vertical-align: top;
+    }
+    .board-table tr:last-child td { border-bottom: none; }
+    .board-table tr:nth-child(even) td { background: var(--cream); }
+    .board-table a { color: var(--amber); font-weight: 600; }
+    .email-template-box {
+      background: var(--cream);
+      border: 1px solid var(--gray-light);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .email-template-box p { margin-bottom: 12px; }
+    .email-template-box p:last-child { margin-bottom: 0; }
+    .meeting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-light);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .meeting-item:last-child { border-bottom: none; }
+    .tip-list {
+      list-style: none;
+      padding: 0;
+    }
+    .tip-list li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .tip-list li:last-child { border-bottom: none; }
+    .tip-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-weight: 700;
+    }
+  </style>
 </head>
 <body>
 
@@ -15,220 +102,287 @@
         <span class="nav-logo-top">DeKalb Schools Coalition</span>
         <span class="nav-logo-sub">Fighting for Our Neighborhood Schools</span>
       </a>
-            <ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="issue.html">The Issue</a></li>
-        <li><a href="schools.html">The 27 Schools</a></li>
+        <li><a href="schools.html">The 30 Schools</a></li>
         <li><a href="financial.html">Financial Impact</a></li>
-        <li><a href="updates.html">Updates</a></li>
         <li><a href="media.html">In The News</a></li>
-        <li class="nav-cta"><a href="take-action.html">Take Action</a></li>
+        <li class="nav-cta"><a href="take-action.html" class="active">Take Action</a></li>
       </ul>
       <button class="nav-burger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
-        <nav class="mobile-nav">
+    <nav class="mobile-nav">
       <a href="index.html">Home</a>
       <a href="issue.html">The Issue</a>
-      <a href="schools.html">The 27 Schools</a>
+      <a href="schools.html">The 30 Schools</a>
       <a href="financial.html">Financial Impact</a>
-      <a href="updates.html">Updates</a>
       <a href="media.html">In The News</a>
       <a href="take-action.html">Take Action →</a>
     </nav>
   </nav>
-  <!-- Hero -->
+
+  <!-- Page Header -->
   <div style="background:var(--navy);padding:48px 0 40px;border-bottom:4px solid var(--amber);">
     <div class="container">
       <span class="eyebrow">Make Your Voice Heard</span>
       <h1 style="color:var(--white);margin:8px 0 16px;">Take Action</h1>
       <p style="color:rgba(255,255,255,0.7);max-width:600px;font-size:1.05rem;">
-        Board members respond to constituent pressure. Here are the most effective things you
-        can do right now — ranked by impact.
+        The Board of Education makes the final call — and board members respond to constituent
+        pressure. Here are the most effective things you can do right now.
       </p>
     </div>
   </div>
 
-  <!-- Action Steps -->
   <section class="section">
     <div class="container">
-      <div style="display:flex;flex-direction:column;gap:40px;">
 
-        <!-- Step 1: Petition -->
-        <div id="petition" style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:32px;border:1px solid var(--gray-light);border-left:5px solid var(--red);border-radius:var(--radius);background:var(--white);">
-          <div>
-            <div style="font-family:var(--font-head);font-size:3rem;font-weight:900;color:var(--red);line-height:1;">1</div>
-            <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Highest Impact</div>
-          </div>
-          <div>
-            <h2 style="font-size:1.5rem;margin-bottom:8px;">Sign the Petition</h2>
-            <p style="color:var(--text-light);">
-              A petition with thousands of signatures is a concrete, countable signal to board members.
-              Sign, and share with every parent you know — in your school and across DeKalb.
-            </p>
-            <!-- Replace with your actual petition embed or link -->
-            <div class="embed-placeholder" style="margin-top:20px;">
-              <strong>Petition Embed</strong>
-              Replace with your Change.org, MoveOn, or Google Form petition link.<br><br>
-              <code>&lt;a href="YOUR_PETITION_URL" class="btn btn-red" target="_blank"&gt;Sign the Petition →&lt;/a&gt;</code>
-            </div>
-          </div>
+      <!-- ── STEP 1: Petition ───────────────────────────────────── -->
+      <div class="action-step" style="border-left:5px solid var(--red);">
+        <div>
+          <div class="action-num" style="color:var(--red);">1</div>
+          <div class="action-rank">Highest Impact</div>
         </div>
-
-        <!-- Step 2: Email -->
-        <div id="email" style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:32px;border:1px solid var(--gray-light);border-left:5px solid var(--orange);border-radius:var(--radius);background:var(--white);">
-          <div>
-            <div style="font-family:var(--font-head);font-size:3rem;font-weight:900;color:var(--orange);line-height:1;">2</div>
-            <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">High Impact</div>
-          </div>
-          <div>
-            <h2 style="font-size:1.5rem;margin-bottom:8px;">Email Your Board Representative</h2>
-            <p style="color:var(--text-light);margin-bottom:20px;">
-              Personal emails — especially from parents sharing their own stories — are read and counted.
-              Find your board member below and use the template to write your own message.
-            </p>
-
-            <!-- Board Members -->
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:24px;">
-              <div style="background:var(--cream);border:1px solid var(--gray-light);border-radius:var(--radius);padding:14px;">
-                <div style="font-weight:600;font-size:0.9rem;color:var(--navy);">UPDATE: Board Member Name</div>
-                <div style="font-size:0.8rem;color:var(--gray);margin:4px 0;">District UPDATE</div>
-                <a href="mailto:UPDATE@dekalbschoolsga.org" style="font-size:0.8rem;color:var(--amber);font-weight:600;">Email →</a>
-              </div>
-              <div style="background:var(--cream);border:1px solid var(--gray-light);border-radius:var(--radius);padding:14px;">
-                <div style="font-weight:600;font-size:0.9rem;color:var(--navy);">UPDATE: Board Member Name</div>
-                <div style="font-size:0.8rem;color:var(--gray);margin:4px 0;">District UPDATE</div>
-                <a href="mailto:UPDATE@dekalbschoolsga.org" style="font-size:0.8rem;color:var(--amber);font-weight:600;">Email →</a>
-              </div>
-              <div style="background:var(--cream);border:1px solid var(--gray-light);border-radius:var(--radius);padding:14px;">
-                <div style="font-weight:600;font-size:0.9rem;color:var(--navy);">UPDATE: Superintendent Name</div>
-                <div style="font-size:0.8rem;color:var(--gray);margin:4px 0;">Superintendent</div>
-                <a href="mailto:UPDATE@dekalbschoolsga.org" style="font-size:0.8rem;color:var(--amber);font-weight:600;">Email →</a>
-              </div>
-            </div>
-
-            <!-- Email Template -->
-            <div style="background:var(--cream);border:1px solid var(--gray-light);border-radius:var(--radius);padding:24px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-                <h4 style="font-size:0.85rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);">Sample Email Template</h4>
-                <button onclick="copyTemplate()" style="background:var(--navy);color:var(--white);border:none;border-radius:var(--radius);padding:6px 14px;font-size:0.8rem;font-weight:600;cursor:pointer;" id="copy-btn">Copy</button>
-              </div>
-              <div id="email-template" style="font-size:0.9rem;line-height:1.7;color:var(--text);">
-                <p>Dear [Board Member Name],</p>
-                <p>My name is [Your Name], and I am the parent of [number] children who attend [School Name] in DeKalb County. I am writing to urge you to vote against the proposed closure of [School Name] in the Student Assignment Project (SAP).</p>
-                <p>[School Name] is more than a building — it is the foundation of our neighborhood. [Add 1–2 sentences specific to your school and your family's experience.]</p>
-                <p>I am deeply concerned that the SAP process has not adequately accounted for [choose: the community's input / the flawed utilization data / the true costs of displacement / the impact on vulnerable students]. I urge you to pause the closure timeline and pursue alternatives before making an irreversible decision.</p>
-                <p>I would welcome the opportunity to speak with you directly. I will also be present at the public comment session on [UPDATE DATE].</p>
-                <p>Respectfully,<br>[Your Name]<br>[Your Address]<br>[Your Email / Phone]</p>
-              </div>
-            </div>
-          </div>
+        <div id="petition">
+          <h2 style="font-size:1.5rem;margin-bottom:8px;">Sign the Petition</h2>
+          <p style="color:var(--text-light);margin-bottom:20px;">
+            A petition with thousands of signatures is concrete, countable evidence of community
+            opposition. Sign it, then share it with every DeKalb parent you know.
+          </p>
+          <a href="https://www.change.org/p/stop-the-restructuring-of-dekalb-county-schools"
+             target="_blank" rel="noopener"
+             class="btn btn-red" style="font-size:1rem;padding:14px 32px;">
+            ✍️ Sign the Petition on Change.org →
+          </a>
+          <p style="font-size:0.82rem;color:var(--gray);margin-top:12px;">
+            Opens on Change.org · "Stop the Restructuring of DeKalb County Schools"
+          </p>
         </div>
+      </div>
 
-        <!-- Step 3: Attend -->
-        <div id="attend" style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:32px;border:1px solid var(--gray-light);border-left:5px solid var(--amber);border-radius:var(--radius);background:var(--white);">
-          <div>
-            <div style="font-family:var(--font-head);font-size:3rem;font-weight:900;color:var(--amber);line-height:1;">3</div>
-            <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">High Impact</div>
-          </div>
-          <div>
-            <h2 style="font-size:1.5rem;margin-bottom:8px;">Attend a Meeting & Speak</h2>
-            <p style="color:var(--text-light);margin-bottom:20px;">
-              Showing up in person — and speaking during public comment — is one of the most powerful
-              things you can do. Board members notice packed rooms. A three-minute statement that
-              shares a personal story is more memorable than a form letter.
-            </p>
-
-            <!-- Upcoming Meetings -->
-            <div style="background:var(--cream);border-radius:var(--radius);border:1px solid var(--gray-light);overflow:hidden;">
-              <div style="background:var(--navy);padding:12px 20px;">
-                <span style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);">Upcoming Meetings</span>
-              </div>
-              <div style="padding:0 20px;">
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--gray-light);flex-wrap:wrap;gap:8px;">
-                  <div>
-                    <div style="font-weight:600;color:var(--navy);">UPDATE: Meeting Name (e.g., Board Work Session)</div>
-                    <div style="font-size:0.85rem;color:var(--gray);">UPDATE DATE · UPDATE TIME · UPDATE LOCATION</div>
-                  </div>
-                  <span class="badge badge-red">Public Comment Open</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--gray-light);flex-wrap:wrap;gap:8px;">
-                  <div>
-                    <div style="font-weight:600;color:var(--navy);">UPDATE: Regular Board Meeting</div>
-                    <div style="font-size:0.85rem;color:var(--gray);">UPDATE DATE · UPDATE TIME · UPDATE LOCATION</div>
-                  </div>
-                  <span class="badge badge-red">⚠️ Final Vote</span>
-                </div>
-                <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;gap:8px;">
-                  <div>
-                    <div style="font-weight:600;color:var(--navy);">UPDATE: Add additional meetings</div>
-                    <div style="font-size:0.85rem;color:var(--gray);">UPDATE DATE · UPDATE TIME · UPDATE LOCATION</div>
-                  </div>
-                  <span class="badge badge-yellow">Informational</span>
-                </div>
-              </div>
-            </div>
-
-            <div style="margin-top:20px;padding:16px;background:var(--amber-pale);border-radius:var(--radius);">
-              <h4 style="margin-bottom:6px;">Tips for Public Comment</h4>
-              <ul style="font-size:0.88rem;color:var(--text-light);padding-left:20px;line-height:1.8;">
-                <li>You'll typically have 2–3 minutes. Practice beforehand.</li>
-                <li>State your name, address, and which school(s) you represent.</li>
-                <li>Lead with a specific, personal story — not statistics.</li>
-                <li>End with a clear ask: "I am asking you to vote NO on the closure of [School Name]."</li>
-                <li>Bring a friend — a packed room sends a message before anyone speaks.</li>
-              </ul>
-            </div>
-          </div>
+      <!-- ── STEP 2: Email Board ────────────────────────────────── -->
+      <div class="action-step" style="border-left:5px solid var(--orange);" id="email">
+        <div>
+          <div class="action-num" style="color:var(--orange);">2</div>
+          <div class="action-rank">High Impact</div>
         </div>
+        <div>
+          <h2 style="font-size:1.5rem;margin-bottom:8px;">Email Your Board Representative</h2>
+          <p style="color:var(--text-light);margin-bottom:20px;">
+            Personal emails — especially ones sharing your family's story — are read and counted.
+            Find your board member below, or
+            <a href="https://www.dekalbschoolsga.org/board/meet-the-boe" target="_blank" rel="noopener"
+               style="color:var(--amber);font-weight:600;">view the full Board directory →</a>
+          </p>
 
-        <!-- Step 4: Spread the Word -->
-        <div id="share" style="display:grid;grid-template-columns:80px 1fr;gap:32px;align-items:start;padding:32px;border:1px solid var(--gray-light);border-left:5px solid var(--green);border-radius:var(--radius);background:var(--white);">
-          <div>
-            <div style="font-family:var(--font-head);font-size:3rem;font-weight:900;color:var(--green);line-height:1;">4</div>
-            <div style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);">Always Helpful</div>
-          </div>
-          <div>
-            <h2 style="font-size:1.5rem;margin-bottom:8px;">Spread the Word</h2>
-            <p style="color:var(--text-light);margin-bottom:20px;">
-              Share this site with every DeKalb parent you know. The more people who are informed
-              and engaged, the harder it is for the board to ignore community opposition.
-            </p>
-            <div class="btn-group">
-              <a href="https://www.facebook.com/sharer/sharer.php?u=UPDATE_YOUR_URL" target="_blank" rel="noopener" class="btn btn-outline">Share on Facebook</a>
-              <a href="https://twitter.com/intent/tweet?text=DeKalb+County+is+proposing+to+close+27+schools.+Our+community+is+fighting+back.&url=UPDATE_YOUR_URL" target="_blank" rel="noopener" class="btn btn-outline">Share on X</a>
-              <button onclick="copyLink()" class="btn btn-outline" id="link-btn">Copy Link</button>
+          <table class="board-table">
+            <thead>
+              <tr>
+                <th>Board Member</th>
+                <th>District</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Deirdre P. Pierce</strong><br><span style="font-size:0.8rem;color:var(--gray);">Chair</span></td>
+                <td>District 3</td>
+                <td><a href="mailto:Deirdre_P_Pierce@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr>
+                <td><strong>Allyson Gevertz</strong><br><span style="font-size:0.8rem;color:var(--gray);">Vice Chair</span></td>
+                <td>District 4</td>
+                <td><a href="mailto:Allyson_Gevertz@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr>
+                <td><strong>Andrew B. Ziffer</strong></td>
+                <td>District 1</td>
+                <td><a href="mailto:Andrew_B_Ziffer@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr>
+                <td><strong>Whitney McGinniss</strong></td>
+                <td>District 2</td>
+                <td><a href="mailto:Whitney_McGinniss@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr>
+                <td><strong>Tiffany Hogan, Ph.D.</strong></td>
+                <td>District 5</td>
+                <td><a href="mailto:Tiffany_Hogan@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr>
+                <td><strong>Diijon DaCosta, Sr.</strong></td>
+                <td>District 6</td>
+                <td><a href="mailto:Diijon_DaCosta@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr>
+                <td><strong>Awet Eyasu</strong></td>
+                <td>District 7</td>
+                <td><a href="mailto:Awet_Eyasu@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+              <tr style="background:var(--cream);">
+                <td><strong>Dr. Norman C. Sauce III</strong><br><span style="font-size:0.8rem;color:var(--gray);">Interim Superintendent</span></td>
+                <td>—</td>
+                <td><a href="mailto:Norman_Sauce@dekalbschoolsga.org">Email →</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:20px;">
+            Note: Email addresses above follow DCSD's standard format. If an email bounces,
+            use the <a href="https://www.dekalbschoolsga.org/board/meet-the-boe" target="_blank" rel="noopener" style="color:var(--amber);">official Board directory</a> for verified contacts.
+          </p>
+
+          <!-- Email Template -->
+          <div class="email-template-box">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+              <h4 style="font-family:var(--font-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);font-weight:500;">Sample Email — Customize with Your Story</h4>
+              <button onclick="copyTemplate()" id="copy-btn"
+                style="background:var(--navy);color:var(--white);border:none;border-radius:var(--radius);padding:7px 16px;font-size:0.8rem;font-weight:600;cursor:pointer;">
+                Copy Text
+              </button>
+            </div>
+            <div id="email-template">
+              <p>Dear [Board Member Name],</p>
+              <p>My name is [Your Name], and I am the parent of [number] children who attend [School Name] in DeKalb County. I am writing to urge you to vote against the proposed closure of [School Name] as part of the Student Assignment Project.</p>
+              <p>[School Name] is more than a building — it is the heart of our neighborhood. [Add 1–2 sentences specific to your school and your family's experience.]</p>
+              <p>I am deeply concerned that the SAP process has relied on data that even some board members have acknowledged may be inaccurate. Several highly-rated schools with strong test scores and dedicated communities are on the closure list — not because of poor performance, but because of enrollment patterns shaped in part by district decisions.</p>
+              <p>I urge you to pause the closure timeline, correct the data, and pursue alternatives — including boundary adjustments and program investments — before making irreversible decisions that will affect thousands of children.</p>
+              <p>I will be present at the next public comment session and hope you will hear from me in person as well.</p>
+              <p>Respectfully,<br>[Your Name]<br>[Your Address]<br>[Your Email / Phone]</p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- ── STEP 3: Speak at Board Meetings ────────────────────── -->
+      <div class="action-step" style="border-left:5px solid var(--amber);" id="attend">
+        <div>
+          <div class="action-num" style="color:var(--amber);">3</div>
+          <div class="action-rank">High Impact</div>
+        </div>
+        <div>
+          <h2 style="font-size:1.5rem;margin-bottom:8px;">Attend &amp; Speak at Board Meetings</h2>
+          <p style="color:var(--text-light);margin-bottom:16px;">
+            Showing up in person — and speaking during public comment — is one of the most
+            powerful things you can do. Board members notice packed rooms. A personal story
+            in 2–3 minutes is more memorable than any form letter.
+          </p>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px;">
+            <a href="https://www.dekalbschoolsga.org/board/public-participation"
+               target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.88rem;">
+              📋 How to Sign Up for Public Comment →
+            </a>
+            <a href="https://www.dekalbschoolsga.org/board/meeting-calendar"
+               target="_blank" rel="noopener" class="btn btn-outline" style="font-size:0.88rem;">
+              📅 Board Meeting Calendar →
+            </a>
+          </div>
+
+          <!-- Upcoming meetings -->
+          <div style="background:var(--white);border:1px solid var(--gray-light);border-radius:var(--radius);overflow:hidden;margin-bottom:24px;">
+            <div style="background:var(--navy);padding:12px 20px;">
+              <span style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--amber);">
+                Upcoming Board Meetings — <a href="https://www.dekalbschoolsga.org/board/meeting-calendar" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.5);font-size:0.9em;">View Full Calendar →</a>
+              </span>
+            </div>
+            <div class="meeting-item">
+              <div>
+                <div style="font-weight:600;color:var(--navy);">UPDATE: Meeting Name</div>
+                <div style="font-size:0.85rem;color:var(--gray);">UPDATE DATE · UPDATE TIME · AIC, 1701 Mountain Industrial Blvd, Stone Mountain</div>
+              </div>
+              <span class="badge badge-red">Public Comment Open</span>
+            </div>
+            <div class="meeting-item">
+              <div>
+                <div style="font-weight:600;color:var(--navy);">UPDATE: Regular Board Meeting</div>
+                <div style="font-size:0.85rem;color:var(--gray);">UPDATE DATE · UPDATE TIME · AIC, 1701 Mountain Industrial Blvd, Stone Mountain</div>
+              </div>
+              <span class="badge badge-yellow">Scheduled</span>
+            </div>
+            <div style="padding:12px 20px;background:var(--cream);">
+              <p style="font-size:0.82rem;color:var(--text-light);margin:0;">
+                Final SAP board vote expected <strong>Fall 2026</strong>. Changes would not take effect until <strong>Fall 2027</strong> at the earliest.
+                <a href="https://www.dekalbschoolsga.org/board/meeting-calendar" target="_blank" rel="noopener" style="color:var(--amber);">Check the calendar for the most current schedule →</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Public comment tips -->
+          <div style="background:var(--amber-pale);border-radius:var(--radius);padding:20px 24px;">
+            <h4 style="margin-bottom:12px;">Tips for Public Comment</h4>
+            <ul class="tip-list">
+              <li>You typically have 2–3 minutes. Practice beforehand and time yourself.</li>
+              <li>State your name, address, and which school(s) you represent.</li>
+              <li>Lead with a specific, personal story — not statistics alone.</li>
+              <li>End with a clear, direct ask: <em>"I am asking you to vote NO on the closure of [School Name]."</em></li>
+              <li>Bring others — a packed room sends a message before anyone speaks.</li>
+              <li>
+                Sign up for public comment in advance at
+                <a href="https://www.dekalbschoolsga.org/board/public-participation" target="_blank" rel="noopener" style="color:var(--navy);font-weight:600;">dekalbschoolsga.org/board/public-participation</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Share ──────────────────────────────────────── -->
+      <div class="action-step" style="border-left:5px solid var(--green);" id="share">
+        <div>
+          <div class="action-num" style="color:var(--green);">4</div>
+          <div class="action-rank">Always Helpful</div>
+        </div>
+        <div>
+          <h2 style="font-size:1.5rem;margin-bottom:8px;">Spread the Word</h2>
+          <p style="color:var(--text-light);margin-bottom:20px;">
+            Share this site with every DeKalb parent you know. The more families who are
+            informed and engaged, the harder it is for the board to ignore us.
+          </p>
+          <div class="btn-group">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=UPDATE_YOUR_SITE_URL"
+               target="_blank" rel="noopener" class="btn btn-outline">Share on Facebook</a>
+            <a href="https://twitter.com/intent/tweet?text=DeKalb+County+is+proposing+to+close+30+schools.+Our+community+is+fighting+back.&url=UPDATE_YOUR_SITE_URL"
+               target="_blank" rel="noopener" class="btn btn-outline">Share on X</a>
+            <button onclick="copyLink()" class="btn btn-outline" id="link-btn">Copy Link</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div>
           <div class="footer-logo">DeKalb Schools Coalition</div>
-          <p style="font-size:0.88rem;">A parent-led, volunteer coalition united against DeKalb County's Student Assignment Project (SAP).</p>
+          <p style="font-size:0.88rem;margin-bottom:16px;">
+            A parent-led, volunteer coalition opposing DeKalb County's Student Assignment Project (SAP).
+            Not affiliated with or funded by DCSD.
+          </p>
         </div>
         <div class="footer-col">
           <h5>Schools</h5>
-          <ul><li><a href="schools.html">All 27 Schools</a></li></ul>
+          <ul>
+            <li><a href="schools.html">All 30 Schools</a></li>
+            <li><a href="schools.html?status=closure">Closure Proposed</a></li>
+            <li><a href="schools.html?status=consolidation">Consolidation</a></li>
+          </ul>
         </div>
-                <div class="footer-col">
+        <div class="footer-col">
           <h5>Resources</h5>
           <ul>
             <li><a href="issue.html">The Issue</a></li>
             <li><a href="financial.html">Financial Impact</a></li>
-            <li><a href="updates.html">Updates</a></li>
             <li><a href="media.html">In The News</a></li>
             <li><a href="take-action.html">Take Action</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
-                <div class="footer-col">
+        <div class="footer-col">
           <h5>DeKalb Links</h5>
           <ul>
             <li><a href="https://www.dekalbschoolsga.org" target="_blank" rel="noopener">DCSD Website</a></li>
@@ -238,7 +392,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 DeKalb Schools Coalition.</span>
+        <span>© 2026 DeKalb Schools Coalition. All rights reserved.</span>
         <span>Built by parents, for parents.</span>
       </div>
     </div>
@@ -252,7 +406,7 @@
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('copy-btn');
         btn.textContent = 'Copied!';
-        setTimeout(() => btn.textContent = 'Copy', 2000);
+        setTimeout(() => btn.textContent = 'Copy Text', 2000);
       });
     }
     function copyLink() {
