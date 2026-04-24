@@ -7,6 +7,7 @@
   <meta name="description" content="News coverage of DeKalb County's Student Assignment Project (SAP) and the parent coalition's fight to keep neighborhood schools open.">
   <link rel="stylesheet" href="css/style.css">
   <style>
+    /* ── Card base ──────────────────────────────────────────── */
     .news-card-auto {
       background: var(--white);
       border: 1px solid var(--gray-light);
@@ -23,32 +24,66 @@
       transform: translateY(-3px);
       color: inherit;
     }
-    .card-thumb {
+
+    /* ── Image / placeholder ────────────────────────────────── */
+    .card-img-wrap {
       width: 100%;
       aspect-ratio: 16/9;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: stretch;
+    }
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
-      background: var(--cream);
-      flex-shrink: 0;
     }
-    .card-thumb-placeholder {
+    /* Publisher-branded placeholder */
+    .card-pub-placeholder {
       width: 100%;
-      aspect-ratio: 16/9;
-      background: linear-gradient(135deg, var(--cream) 0%, var(--gray-light) 100%);
+      height: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-      gap: 4px;
-      flex-shrink: 0;
+      gap: 8px;
+      padding: 16px;
+      text-align: center;
     }
-    .card-thumb-pub {
+    .card-pub-placeholder .pub-abbr {
       font-family: var(--font-head);
-      font-size: 1.4rem;
       font-weight: 900;
-      color: var(--navy);
-      opacity: 0.2;
+      font-size: 1.3rem;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
+    .card-pub-placeholder .pub-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    /* Per-publisher colour themes */
+    .pub-rda   { background: #1a2a4a; color: #e8c060; }
+    .pub-rda   .pub-abbr { color: #ffffff; }
+    .pub-dec   { background: #1f4e8c; color: #ffffff; }
+    .pub-dec   .pub-abbr { color: #7ec8f0; }
+    .pub-appen { background: #2c6e49; color: #ffffff; }
+    .pub-appen .pub-abbr { color: #a8d8a8; }
+    .pub-fox5  { background: #c41230; color: #ffffff; }
+    .pub-fox5  .pub-abbr { color: #ffde00; }
+    .pub-ajc   { background: #002868; color: #ffffff; }
+    .pub-ajc   .pub-abbr { color: #bfd3f0; }
+    .pub-wabe  { background: #005b8e; color: #ffffff; }
+    .pub-wabe  .pub-abbr { color: #8fd4f8; }
+    .pub-cbs   { background: #1a1a2e; color: #ffffff; }
+    .pub-cbs   .pub-abbr { color: #e0c070; }
+
+    /* Card body */
     .card-body {
       padding: 18px 20px 20px;
       flex: 1;
@@ -75,6 +110,17 @@
       font-size: 0.68rem;
       color: var(--gray);
     }
+    .card-type {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 2px;
+      background: var(--cream);
+      color: var(--gray);
+      border: 1px solid var(--gray-light);
+    }
     .card-title {
       font-family: var(--font-head);
       font-size: 1rem;
@@ -98,7 +144,7 @@
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--navy);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 4px;
       margin-top: auto;
@@ -106,22 +152,6 @@
     .card-readmore::after { content: ' →'; }
     .news-card-auto:hover .card-readmore,
     .featured-card:hover .card-readmore { color: var(--amber); }
-
-    /* Skeleton shimmer */
-    @keyframes shimmer {
-      0%   { background-position: -600px 0; }
-      100% { background-position:  600px 0; }
-    }
-    .skeleton {
-      background: linear-gradient(90deg, var(--gray-light) 25%, #e8e4de 50%, var(--gray-light) 75%);
-      background-size: 600px 100%;
-      animation: shimmer 1.4s infinite;
-      border-radius: var(--radius);
-    }
-    .skeleton-card {
-      min-height: 320px;
-      border-radius: var(--radius);
-    }
 
     /* Featured (horizontal) card */
     .featured-card {
@@ -134,55 +164,55 @@
       text-decoration: none;
       color: inherit;
       transition: box-shadow 0.2s ease, transform 0.2s ease;
-      min-height: 240px;
+      min-height: 260px;
     }
     .featured-card:hover {
       box-shadow: var(--shadow-lg);
       transform: translateY(-2px);
       color: inherit;
     }
-    .featured-card .card-thumb,
-    .featured-card .card-thumb-placeholder {
+    .featured-card .card-img-wrap {
       aspect-ratio: unset;
       height: 100%;
-      width: 100%;
     }
     .featured-card .card-body { padding: 28px 32px; }
     .featured-card .card-title { font-size: 1.35rem; margin-bottom: 12px; }
     .featured-card .card-desc { -webkit-line-clamp: 4; }
     @media (max-width: 720px) {
       .featured-card { grid-template-columns: 1fr; }
-      .featured-card .card-thumb,
-      .featured-card .card-thumb-placeholder { aspect-ratio: 16/9; height: auto; }
-    }
-    .featured-skeleton {
-      height: 280px;
-      border-radius: var(--radius);
+      .featured-card .card-img-wrap { aspect-ratio: 16/9; height: auto; }
     }
 
-    /* Error card */
-    .card-error {
-      border: 1px dashed var(--gray-light);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text-light);
-      font-size: 0.88rem;
-      transition: background 0.15s;
-    }
-    .card-error:hover { background: var(--cream); color: var(--text-light); }
-    .card-error-url { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gray); word-break: break-all; }
-
+    /* Grid */
     .auto-news-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
     }
-    .empty-state { text-align: center; padding: 80px 0; color: var(--gray); }
-    .empty-state .icon { font-size: 3rem; margin-bottom: 16px; }
+
+    /* Outlet filter pills */
+    .outlet-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .outlet-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--gray-light);
+      border-radius: 20px;
+      background: var(--white);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .outlet-btn:hover { border-color: var(--amber); color: var(--navy); }
+    .outlet-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
     .press-bar { background: var(--amber-pale); border-bottom: 1px solid rgba(232,160,32,0.3); padding: 14px 0; }
   </style>
 </head>
@@ -194,19 +224,19 @@
         <span class="nav-logo-top">DeKalb Schools Coalition</span>
         <span class="nav-logo-sub">Fighting for Our Neighborhood Schools</span>
       </a>
-            <ul class="nav-links">
+      <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="issue.html">The Issue</a></li>
         <li><a href="schools.html">The 30 Schools</a></li>
         <li><a href="financial.html">Financial Impact</a></li>
-        <li><a href="media.html">In The News</a></li>
+        <li><a href="media.html" class="active">In The News</a></li>
         <li class="nav-cta"><a href="take-action.html">Take Action</a></li>
       </ul>
       <button class="nav-burger" aria-label="Open menu">
         <span></span><span></span><span></span>
       </button>
     </div>
-        <nav class="mobile-nav">
+    <nav class="mobile-nav">
       <a href="index.html">Home</a>
       <a href="issue.html">The Issue</a>
       <a href="schools.html">The 30 Schools</a>
@@ -216,63 +246,47 @@
     </nav>
   </nav>
 
-  <!-- Page Header -->
   <div style="background:var(--navy);padding:48px 0 40px;border-bottom:4px solid var(--amber);">
     <div class="container">
       <span class="eyebrow">Press &amp; Media Coverage</span>
       <h1 style="color:var(--white);margin:8px 0 16px;">In The News</h1>
       <p style="color:rgba(255,255,255,0.7);max-width:640px;font-size:1.05rem;">
         News coverage of DeKalb County's Student Assignment Project (SAP) and the community's
-        fight to protect neighborhood schools.
+        fight to protect neighborhood schools. Newest coverage first.
       </p>
     </div>
   </div>
 
-  <!-- Press Contact Bar -->
   <div class="press-bar">
     <div class="container" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
       <span style="font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray);white-space:nowrap;">Press Inquiries:</span>
       <span style="font-size:0.88rem;color:var(--text);">
-        Media representatives — contact
+        Contact
         <a href="mailto:media@dekalbstudents.org" style="color:var(--amber);font-weight:600;">media@dekalbstudents.org</a>
         for interviews, statements, or additional information.
       </span>
     </div>
   </div>
 
-  <!-- Main Content -->
   <section class="section">
     <div class="container">
 
       <div id="featured-section" style="margin-bottom:56px;">
         <span class="eyebrow">Featured</span>
         <h2 style="margin-bottom:24px;">Most Recent</h2>
-        <div id="featured-container">
-          <div class="skeleton featured-skeleton"></div>
-        </div>
+        <div id="featured-container"></div>
       </div>
 
-      <div id="archive-section">
+      <div>
         <span class="eyebrow">All Coverage</span>
-        <h2 style="margin-bottom:24px;">Press Archive</h2>
-        <div class="auto-news-grid" id="news-grid">
-          <div class="skeleton skeleton-card"></div>
-          <div class="skeleton skeleton-card"></div>
-          <div class="skeleton skeleton-card"></div>
-        </div>
-        <div class="empty-state hidden" id="empty-state">
-          <div class="icon">📰</div>
-          <h3>Coverage coming soon</h3>
-          <p style="margin-top:8px;">
-            Add article URLs to the <code>ARTICLES</code> array at the top of <code>media.html</code>.
-          </p>
-        </div>
+        <h2 style="margin-bottom:20px;">Press Archive</h2>
+        <div class="outlet-filter" id="outlet-filter"></div>
+        <div class="auto-news-grid" id="news-grid"></div>
       </div>
 
     </div>
   </section>
 
-  <!-- Press Resources -->
   <section class="section section--cream">
     <div class="container">
       <div class="section-header">
@@ -297,32 +311,27 @@
           <div style="font-size:1.5rem;margin-bottom:10px;">🎙️</div>
           <h3>Interview Requests</h3>
           <p>Parent spokespeople are available for interviews across multiple affected schools and clusters.</p>
-          <a href="mailto:UPDATE@email.com" class="card-link">Request Interview</a>
+          <a href="mailto:media@dekalbstudents.org" class="card-link">Request Interview</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div>
           <div class="footer-logo">DeKalb Schools Coalition</div>
-          <p style="font-size:0.88rem;margin-bottom:16px;">
-            A parent-led, volunteer coalition united against DeKalb County's
-            Student Assignment Project (SAP). Not affiliated with or funded by DCSD.
-          </p>
+          <p style="font-size:0.88rem;margin-bottom:16px;">A parent-led, volunteer coalition united against DeKalb County's Student Assignment Project (SAP). Not affiliated with or funded by DCSD.</p>
         </div>
         <div class="footer-col">
           <h5>Schools</h5>
           <ul>
             <li><a href="schools.html">All 30 Schools</a></li>
             <li><a href="schools.html?status=closure">Closure Proposed</a></li>
-            <li><a href="schools.html?status=consolidation">Consolidation</a></li>
           </ul>
         </div>
-                <div class="footer-col">
+        <div class="footer-col">
           <h5>Resources</h5>
           <ul>
             <li><a href="issue.html">The Issue</a></li>
@@ -336,7 +345,7 @@
           <h5>DeKalb Links</h5>
           <ul>
             <li><a href="https://www.dekalbschoolsga.org" target="_blank" rel="noopener">DCSD Website</a></li>
-            <li><a href="https://www.dekalbschoolsga.org/board-of-education/" target="_blank" rel="noopener">Board of Education</a></li>
+            <li><a href="https://www.dekalbschoolsga.org/board/meet-the-boe" target="_blank" rel="noopener">Board of Education</a></li>
             <li><a href="https://www.dekalbschoolsga.org/divisions/access-and-opportunity/sap" target="_blank" rel="noopener">Student Assignment Project (SAP)</a></li>
           </ul>
         </div>
@@ -352,187 +361,423 @@
   <script src="js/main.js"></script>
   <script>
   /* ================================================================
-     IN THE NEWS — How to add an article
-     ================================================================
+     ARTICLES — Hardcoded, reverse chronological (newest first).
 
-     1. Find the ARTICLES array below.
-     2. Add the article URL as a new item at the TOP of the list:
-          { url: "https://www.ajc.com/news/your-article" },
-     3. Save and push to GitHub. Done — the preview loads automatically.
+     TO ADD A NEW ARTICLE: paste a new object at the very TOP of the
+     ARTICLES array (before the first {).
 
-     The page calls the free Microlink API to fetch the article's
-     Open Graph image, headline, description, and publisher,
-     just like LinkedIn or Facebook link previews.
+     Fields:
+       url         — full article URL (required)
+       title       — headline (required)
+       publisher   — outlet name exactly as you want it displayed
+       pubKey      — publisher style key: "rda" | "dec" | "appen" |
+                     "fox5" | "ajc" | "wabe" | "cbs" | (leave blank for generic)
+       pubAbbr     — short name for the placeholder card graphic (2-4 words)
+       date        — "Month D, YYYY"
+       type        — "News" | "Opinion" | "Analysis" | "Letter" | "Video"
+       description — 1-2 sentence summary
+       image       — direct image URL, or null to use the publisher placeholder
 
-     FIRST article = featured card (large, top of page).
-     All others = grid cards below.
-
-     ── OPTIONAL OVERRIDES ────────────────────────────────────────
-     If a preview comes in with wrong/missing data, add override fields:
-
-       { url: "https://...",
-         title:       "Custom headline to show",
-         description: "Custom excerpt to show",
-         image:       "https://direct-image-url.jpg",
-         publisher:   "AJC" }
-
-     Any field you provide skips the auto-fetch for that field only.
-     ================================================================ */
+     NOTE ON IMAGES: Most news sites block image hotlinking. If you have
+     a direct CDN URL for an article image (e.g. from the article's
+     og:image tag), paste it in the `image` field. Otherwise leave null
+     and the publisher-branded placeholder will display automatically.
+  ================================================================ */
 
   const ARTICLES = [
 
+    // ── Add newest articles at the TOP of this list ─────────────
 
-	{ url: "https://www.decaturish.com/schools/parents-speak-out-against-dekalb-schools-closure-plans/article_9ff612d6-fcc6-4008-a2e6-e07e51b924dd.html" },
-	{ url: "https://www.decaturish.com/opinion/letters_to_editor/dear-decaturish-parents-weigh-in-on-closure-process/article_77709e76-a56c-4687-b673-dd645a7f42c2.html" },
-	{ url: "https://www.decaturish.com/news/dekalb/dekalb-schools-closure-discussion-raises-financial-questions/article_cb462cd7-5fd3-407c-af9c-cc53700ce748.html" },
-	{ url: "https://www.decaturish.com/opinion/letters_to_editor/dear-decaturish-i-want-to-tell-you-a-different-story/article_bf4b988e-4dfd-4501-be61-b6d665bb558a.html" },
-	{ url: "https://roughdraftatlanta.com/2026/04/01/save-vanderlyn-neighborhood-school/" },
-    { url: "https://www.decaturish.com/schools/dunwoody-chamblee-parents-question-dekalb-school-closures/article_15e8921b-bc5e-4fba-b899-4e5ebd51c6ec.html" },
-    { url: "https://roughdraftatlanta.com/2026/03/26/parents-investigate-hpm-consulting/" },
-    { url: "https://roughdraftatlanta.com/2026/03/25/dunwoody-homeowners-debate-school-changes/" },
-	{ url: "https://roughdraftatlanta.com/2026/03/19/vanderlyn-elementary-school-closure-survey/" },
-	{ url: "https://www.appenmedia.com/opinion/opinion-dunwoody-needs-to-step-up-to-save-vanderlyn-elementary/article_bea677fc-cde8-43d0-a0fc-45f24ec29e7b.html" },
-	{ url: "https://www.appenmedia.com/opinion/opinion-dunwoody-leaders-must-speak-out-on-draft-plan-to-close-local-schools/article_42e798af-f231-4e17-90fe-b53ed78dddc4.html" },
-	
-	// ── Add newest articles at the TOP ────────────────────────────
-    // { url: "https://www.ajc.com/..." },
-    // { url: "https://www.wsbtv.com/..." },
-    // { url: "https://www.fox5atlanta.com/..." },
-    // { url: "https://www.dekalbcountydnews.com/..." },
-    // { url: "https://www.wabe.org/..." },
+    {
+      url: "https://www.decaturish.com/schools/parents-speak-out-against-dekalb-schools-closure-plans/article_9ff612d6-fcc6-4008-a2e6-e07e51b924dd.html",
+      title: "Parents speak out against DeKalb Schools' closure plans",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "April 21, 2026",
+      type: "News",
+      description: "The DeKalb County School Board room filled with frustrated parents at its April 20 meeting. About 50 parents and children rallied outside before the meeting, holding signs for Oak Grove, Vanderlyn, Evansdale, and Brockett. Oak Grove parent Arielle McKee: \"All of us have these little communities, and the school is what supports the whole community.\"",
+      image: null
+    },
+    {
+      url: "https://www.decaturish.com/opinion/letters_to_editor/dear-decaturish-parents-weigh-in-on-closure-process/article_77709e76-a56c-4687-b673-dd645a7f42c2.html",
+      title: "Dear Decaturish — Parents weigh in on closure process",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "April 21, 2026",
+      type: "Letter",
+      description: "Oak Grove parent Thomas Brown, Rockbridge Coalition President Lance Hammonds, and former board member Thad Mayfield address the board: \"There is not a single academic input in this plan. No CCRPI data. No reading or math proficiency scores.\" HPM's $1.5 billion plan is called \"the largest single capital investment in Georgia school district history — with no academic input.\"",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/04/14/student-assignment-project-tucker-schools/",
+      title: "Tucker City Council debates DeKalb school consolidation",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "April 14, 2026",
+      type: "News",
+      description: "Tucker City Council members raised concerns about transportation, abandoned buildings, and traffic after hearing a SAP update. Council member Virginia Rece: \"We are a walking community. What I saw was, 'We're going to put your kids on a bus and bus you across town.' And that is hard for parents who purchased their homes around these schools.\"",
+      image: null
+    },
+    {
+      url: "https://www.decaturish.com/opinion/letters_to_editor/dear-decaturish-i-want-to-tell-you-a-different-story/article_bf4b988e-4dfd-4501-be61-b6d665bb558a.html",
+      title: "Dear Decaturish — I want to tell you a different story",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "April 7, 2026",
+      type: "Opinion",
+      description: "A Kingsley Elementary parent offers a counterpoint: \"While the loudest voices have focused on tearing down the process, schools like ours have been quietly living with the consequences of doing nothing. By 2030, our enrollment is projected at 392 students in a building designed for 504. The proposed consolidation is not a punishment — it is an acknowledgment that our kids deserve more.\"",
+      image: null
+    },
+    {
+      url: "https://www.decaturish.com/news/dekalb/dekalb-schools-closure-discussion-raises-financial-questions/article_cb462cd7-5fd3-407c-af9c-cc53700ce748.html",
+      title: "DeKalb Schools closure discussion raises financial questions",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "April 3, 2026",
+      type: "Analysis",
+      description: "Two months after closures were announced, the district still can't say how much money the plan saves. A parent asks: \"Where does this magical money come from to double Chesnut in size?\" Board member McGinniss: the data \"has not been accurate and should be reassessed.\" A board candidate calls the plan \"fiscally unsound and morally appalling.\"",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/04/01/save-vanderlyn-neighborhood-school/",
+      title: "Save Our Neighborhood: Opposing DCSD's School Closures",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "April 1, 2026",
+      type: "Opinion",
+      description: "A Vanderlyn parent: \"It's an overwhelming feeling of togetherness, burden dispersion, and hope.\" She argues the SAP was started by an indicted superintendent, driven by a consultant with a mixed track record, and is neither financially sound nor educationally justified. \"At what point are we willing to kill what is right, good, and actively achieving desired results?\"",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/26/parents-investigate-hpm-consulting/",
+      title: "Analysis reveals HPM's mixed, negative results in school district projects around the U.S.",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 26, 2026",
+      type: "Analysis",
+      description: "DeKalb parents' 22-case analysis of HPM consultant Tracy Richter's track record: 7 negative outcomes, 6 rejected or abandoned closure plans, only 1 positive result — from a project with no closures. The SAP could cost $1.5–2 billion. Oak Grove's Thomas Brown told board members: \"Their projects consistently overpromise and underdeliver. When this is over, HPM moves on. You do not.\"",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/25/dunwoody-homeowners-debate-school-changes/",
+      title: "Parents divided over proposed school changes in Dunwoody",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 25, 2026",
+      type: "News",
+      description: "Dunwoody homeowners debate whether the SAP process is genuinely community-driven or a done deal. Parents at the Dunwoody HOA meeting mobilize to demand the City Council pass a formal resolution opposing the closure of Vanderlyn and Kingsley and calling for a comprehensive impact study.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/24/dekalb-county-school-district-protest/",
+      title: "Parents voice concerns over DeKalb County's SAP plan",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 24, 2026",
+      type: "News",
+      description: "Oak Grove and Evansdale parents protested outside Lakeside High School before the Round 2 community feedback session. Samuel Howe: \"This is not a process. This is a farce, and they're not listening.\" His community submitted 1,200 surveys in Round 1 and saw no changes. Parents say HPM is financially incentivized to recommend closures.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/23/student-assignment-project-protest/",
+      title: "Parents employ innovative methods to protest DeKalb County's school assignment project",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 23, 2026",
+      type: "News",
+      description: "Vanderlyn parents surveyed their community (53 families say they'd leave DCSD entirely if the school closes). Oak Grove parents created a viral child-narrated video questioning HPM's incentives — over 15,000 views in one week. Dozens rallied at the Dunwoody HOA meeting, urging city leaders to take a formal stand.",
+      image: null
+    },
+    {
+      url: "https://www.fox5atlanta.com/news/dekalb-releasing-new-revised-list-potential-school-changes",
+      title: "DeKalb school district releases revised list of potential school changes",
+      publisher: "FOX 5 Atlanta",
+      pubKey: "fox5",
+      pubAbbr: "FOX 5 Atlanta",
+      date: "March 20, 2026",
+      type: "News",
+      description: "Round 2 SAP scenarios released — cluster-specific and reflecting 3,000+ survey responses and 8 community meetings. SAP committee member Kirk Lunde: \"Why are we not talking about the financial aspects of the student assignment project?\" A third and final round of scenarios is expected in April, with a board vote in fall 2026.",
+      image: null
+    },
+    {
+      url: "https://www.ajc.com/education/2026/03/dekalb-changes-which-schools-are-slated-for-closure-in-updated-plan/",
+      title: "DeKalb changes which schools are slated for closure in updated plan",
+      publisher: "Atlanta Journal-Constitution",
+      pubKey: "ajc",
+      pubAbbr: "AJC",
+      date: "March 20, 2026",
+      type: "News",
+      description: "The updated Round 2 plan removes Rock Chapel and Stoneview from the closure list while adding Fairington and Oak View. Several high schools would convert to 6–12 campuses, and Cedar Grove ES and MS would swap roles. Second-graders at Oak Grove continued their school day as the plan was announced.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/20/vanderlyn-elementary-school-closure/",
+      title: "Vanderlyn proposed to be converted into Dunwoody High School annex in new SAP plan",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 20, 2026",
+      type: "News",
+      description: "Round 2 reveals Vanderlyn may become a 9th grade academy or career tech annex for an already-overcrowded Dunwoody HS. Parent David Lubin: \"It's hard to understand how the expansion of Dunwoody High School is being prioritized over a high-performing, established elementary school that so many families rely on.\"",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/19/vanderlyn-elementary-school-closure-survey/",
+      title: "DeKalb parents consider leaving district if Vanderlyn closes",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 19, 2026",
+      type: "News",
+      description: "A parent survey finds 53 Vanderlyn families would choose options entirely outside DCSD if the school closes. 38% of families who say they'd move to another public district have two or more children at Vanderlyn. Parents say they were explicitly told Vanderlyn was \"safe\" because of its top rankings — a promise now broken.",
+      image: null
+    },
+    {
+      url: "https://www.appenmedia.com/opinion/opinion-dunwoody-needs-to-step-up-to-save-vanderlyn-elementary/article_bea677fc-cde8-43d0-a0fc-45f24ec29e7b.html",
+      title: "Opinion: Dunwoody needs to step up to save Vanderlyn Elementary",
+      publisher: "Appen Media",
+      pubKey: "appen",
+      pubAbbr: "Appen Media",
+      date: "March 16, 2026",
+      type: "Opinion",
+      description: "A community member argues that Dunwoody city leaders must do more than host an informational briefing from DCSD — they need to actively oppose the closure of Vanderlyn and Kingsley. The opinion calls for a formal council resolution demanding a comprehensive impact analysis before any decisions are made.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/12/dekalb-school-district-closures/",
+      title: "DeKalb School officials discuss data gathered during student assignment surveys, meetings",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 12, 2026",
+      type: "News",
+      description: "DCSD officials summarize 5,000+ survey responses and 8 community meetings. \"Traffic, traffic, traffic\" and \"equity, equity, equity\" were the most repeated themes. The community was equally split on small vs. large schools — but concerns about financial transparency and saving high-performing schools were nearly universal.",
+      image: null
+    },
+    {
+      url: "https://www.decaturish.com/schools/dunwoody-chamblee-parents-question-dekalb-school-closures/article_15e8921b-bc5e-4fba-b899-4e5ebd51c6ec.html",
+      title: "Dunwoody, Chamblee parents question DeKalb school closures",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "March 2026",
+      type: "News",
+      description: "Parents from the Dunwoody and Chamblee clusters pack community sessions with pointed questions about the data behind closures, the financial case for consolidation, and why top-performing schools are on the list. Board member Ziffer acknowledges communities have \"deep, emotional connections\" while defending the long-term fiscal rationale.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/03/02/dekalb-county-school-closures/",
+      title: "Parents protest potential closure of 27 DeKalb schools",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "March 2, 2026",
+      type: "News",
+      description: "Despite heavy rains, hundreds packed Cross Keys High School in matching Ashford Park shirts to push back on Round 1 closures. Parents from Vanderlyn, Oak Grove, and Kingsley filled the room. HPM's Tracy Richter: \"This process should not be an 'event,' but something that should be discussed all the time.\"",
+      image: null
+    },
+    {
+      url: "https://www.decaturish.com/schools/dekalb-school-board-pushes-back-on-school-closure-proposal/article_c1d6f858-6cde-4d9d-af79-a35761cfc11d.html",
+      title: "DeKalb School Board members request edits to closure rollout",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "February 24, 2026",
+      type: "News",
+      description: "Board member Hogan calls the rollout \"insensitive\" and \"callous.\" Multiple members question HPM's outsized role as the face of the process. \"I'm not on board. I don't agree with how we went about doing this,\" Hogan said. HPM received a $6.3 million contract renewal just two weeks before the closures were announced.",
+      image: null
+    },
+    {
+      url: "https://www.wabe.org/dekalb-school-board-pushes-back-on-school-closure-proposal/",
+      title: "DeKalb School Board pushes back on school closure proposal",
+      publisher: "WABE",
+      pubKey: "wabe",
+      pubAbbr: "WABE 90.1",
+      date: "February 25, 2026",
+      type: "News",
+      description: "Board members criticize HPM's outsized presence at community sessions and push for district voices to lead instead. Hogan: \"I know that we want to continue on as if everything is normal, but it's not.\" The district has 110,000 seats and about 92,000 students — making fiscal reform necessary, but not at any cost.",
+      image: null
+    },
+    {
+      url: "https://www.appenmedia.com/opinion/opinion-dunwoody-leaders-must-speak-out-on-draft-plan-to-close-local-schools/article_42e798af-f231-4e17-90fe-b53ed78dddc4.html",
+      title: "Opinion: Dunwoody leaders must speak out on draft plan to close local schools",
+      publisher: "Appen Media",
+      pubKey: "appen",
+      pubAbbr: "Appen Media",
+      date: "February 24, 2026",
+      type: "Opinion",
+      description: "\"An informational briefing is not leadership. Hosting a presentation is passive. What Dunwoody needs right now is an active, unified voice.\" The author calls for the City Council to pass a resolution opposing the closure of Vanderlyn and Kingsley and demanding a comprehensive impact analysis before any decisions are finalized.",
+      image: null
+    },
+    {
+      url: "https://www.decaturish.com/schools/dekalb-county-weighs-potential-closure-of-27-schools/article_ec3ba728-57b7-4c2f-9a86-be746c9afe6d.html",
+      title: "DeKalb County weighs potential closure of 27 schools",
+      publisher: "Decaturish",
+      pubKey: "dec",
+      pubAbbr: "Decaturish",
+      date: "February 12, 2026",
+      type: "News",
+      description: "DCSD announces potential closure of 27 buildings and expansion of 11 as part of the Student Assignment Project. No schools close in 2026-27; community feedback runs through May before a final board vote in late fall. Executive Director Sarita Smith: \"What we start with is definitely not going to be what we end up with.\"",
+      image: null
+    },
+    {
+      url: "https://www.appenmedia.com/dunwoody/dekalb-schools-weighs-potential-closure-of-27-schools/article_2360a1a8-c503-595d-8d6f-a62e84ab1771.html",
+      title: "DeKalb Schools weighs potential closure of 27 schools",
+      publisher: "Appen Media",
+      pubKey: "appen",
+      pubAbbr: "Appen Media",
+      date: "February 12, 2026",
+      type: "News",
+      description: "Appen Media's comprehensive coverage of the initial SAP announcement: 27 buildings proposed for closure or change, grade-band reconfigurations across the district, and a community feedback process running February through May before a final board vote.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2026/02/12/dekalb-school-closure-plan/",
+      title: "DeKalb County schools face closure amid declining enrollment",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "February 12, 2026",
+      type: "News",
+      description: "Ashford Park, Vanderlyn, Kingsley, and Brockett are among schools named in DCSD's initial closure scenario. The district has ~90,000 students but facilities built for 110,000. Board member Ziffer: \"Our schools are more than buildings; they are gathering places, memory-makers, and anchors of community identity.\"",
+      image: null
+    },
+    {
+      url: "https://www.appenmedia.com/opinion/opinion-changes-are-coming-to-dunwoody-student-assignment/article_8fbd952a-829b-4402-b627-6f035914c250.html",
+      title: "Opinion: Changes are coming to Dunwoody student assignment",
+      publisher: "Appen Media",
+      pubKey: "appen",
+      pubAbbr: "Appen Media",
+      date: "January 23, 2026",
+      type: "Opinion",
+      description: "Board member Andrew Ziffer explains the financial pressures driving SAP. The Dunwoody cluster has too many small elementary schools operating below efficient scale. He writes that all decisions will be public and data-driven, and that \"students and teachers\" — not underutilized buildings — should receive more resources.",
+      image: null
+    },
+    {
+      url: "https://roughdraftatlanta.com/2025/07/28/dekalb-may-close-aging-vanderlyn-chesnut-schools-school-rep-says/",
+      title: "DeKalb may consolidate or rebuild Vanderlyn, Chesnut schools, school rep says",
+      publisher: "Rough Draft Atlanta",
+      pubKey: "rda",
+      pubAbbr: "Rough Draft Atlanta",
+      date: "July 28, 2025",
+      type: "News",
+      description: "The first public warning: Board member Ziffer tells the Dunwoody HOA that DeKalb plans to close 30 schools in 3–4 years. He specifically names Vanderlyn and Chesnut as candidates — nearly a year before official closures were announced. \"We have 130 schools now, and we need to have 100 schools with 1,000 students each in them.\"",
+      image: null
+    }
+
     // ─────────────────────────────────────────────────────────────
   ];
 
-  /* ── Rendering engine — no edits needed below ──────────────────── */
+  /* ── Publisher style map ──────────────────────────────────── */
+  const PUB_STYLES = {
+    rda:   { cls: "pub-rda",   abbr: "Rough Draft Atlanta" },
+    dec:   { cls: "pub-dec",   abbr: "Decaturish" },
+    appen: { cls: "pub-appen", abbr: "Appen Media" },
+    fox5:  { cls: "pub-fox5",  abbr: "FOX 5 Atlanta" },
+    ajc:   { cls: "pub-ajc",   abbr: "AJC" },
+    wabe:  { cls: "pub-wabe",  abbr: "WABE 90.1" },
+    cbs:   { cls: "pub-cbs",   abbr: "CBS News" },
+  };
 
-  const MICROLINK_API = "https://api.microlink.io?url=";
-
-  function fmtDate(s) {
-    if (!s) return null;
-    try {
-      return new Date(s).toLocaleDateString('en-US',
-        { month: 'long', day: 'numeric', year: 'numeric' });
-    } catch { return null; }
+  function imgEl(a, featured) {
+    if (a.image) {
+      return `<img src="${a.image}" alt="" loading="${featured ? 'eager' : 'lazy'}"
+        style="width:100%;height:100%;object-fit:cover;display:block;"
+        onerror="this.parentElement.innerHTML=placeholderHTML('${a.pubKey||''}','${(a.pubAbbr||a.publisher).replace(/'/g,"&#39;")}')">`;
+    }
+    return placeholderHTML(a.pubKey || '', a.pubAbbr || a.publisher);
   }
 
-  function placeholder(pub) {
-    return `<div class="card-thumb-placeholder">
-      <div class="card-thumb-pub">${pub || 'NEWS'}</div>
+  function placeholderHTML(key, abbr) {
+    const ps = PUB_STYLES[key] || { cls: 'pub-rda', abbr: abbr };
+    const displayAbbr = abbr || ps.abbr;
+    return `<div class="card-pub-placeholder ${ps.cls}">
+      <div class="pub-abbr">${displayAbbr}</div>
+      <div class="pub-tag">News Coverage</div>
     </div>`;
   }
 
-  function safePub(pub) {
-    return pub ? `<span class="card-publisher">${pub}</span><span style="color:var(--gray-light)">·</span>` : '';
+  function metaEl(a) {
+    const type = a.type
+      ? `<span class="card-type">${a.type}</span>`
+      : '';
+    return `
+      <span class="card-publisher">${a.publisher}</span>
+      <span style="color:var(--gray-light)">·</span>
+      <span class="card-date">${a.date}</span>
+      ${type}`;
   }
 
-  function buildFeatured(d, url) {
-    const thumb = d.image
-      ? `<img class="card-thumb" src="${d.image}" alt="" loading="eager"
-             onerror="this.outerHTML=\`${placeholder(d.publisher).replace(/`/g,"'")}\`">`
-      : placeholder(d.publisher);
-    const date = fmtDate(d.date);
-    return `<a href="${url}" target="_blank" rel="noopener" class="featured-card">
-      <div>${thumb}</div>
-      <div class="card-body">
-        <div class="card-meta">
-          ${safePub(d.publisher)}
-          ${date ? `<span class="card-date">${date}</span>` : ''}
+  function buildFeatured(a) {
+    return `
+      <a href="${a.url}" target="_blank" rel="noopener" class="featured-card">
+        <div class="card-img-wrap">${imgEl(a, true)}</div>
+        <div class="card-body">
+          <div class="card-meta">${metaEl(a)}</div>
+          <div class="card-title">${a.title}</div>
+          <div class="card-desc">${a.description || ''}</div>
+          <span class="card-readmore">Read the full article</span>
         </div>
-        <div class="card-title">${d.title || 'Read Article'}</div>
-        <div class="card-desc">${d.description || ''}</div>
-        <span class="card-readmore">Read the full article</span>
-      </div>
-    </a>`;
+      </a>`;
   }
 
-  function buildCard(d, url) {
-    const thumb = d.image
-      ? `<img class="card-thumb" src="${d.image}" alt="" loading="lazy"
-             onerror="this.outerHTML=\`${placeholder(d.publisher).replace(/`/g,"'")}\`">`
-      : placeholder(d.publisher);
-    const date = fmtDate(d.date);
-    return `<a href="${url}" target="_blank" rel="noopener" class="news-card-auto">
-      ${thumb}
-      <div class="card-body">
-        <div class="card-meta">
-          ${safePub(d.publisher)}
-          ${date ? `<span class="card-date">${date}</span>` : ''}
+  function buildCard(a) {
+    return `
+      <a href="${a.url}" target="_blank" rel="noopener"
+         class="news-card-auto" data-publisher="${a.publisher}">
+        <div class="card-img-wrap">${imgEl(a, false)}</div>
+        <div class="card-body">
+          <div class="card-meta">${metaEl(a)}</div>
+          <div class="card-title">${a.title}</div>
+          <div class="card-desc">${a.description || ''}</div>
+          <span class="card-readmore">Read article</span>
         </div>
-        <div class="card-title">${d.title || 'Read Article'}</div>
-        <div class="card-desc">${d.description || ''}</div>
-        <span class="card-readmore">Read article</span>
-      </div>
-    </a>`;
+      </a>`;
   }
 
-  function buildError(url) {
-    let domain = url;
-    try { domain = new URL(url).hostname.replace('www.', ''); } catch {}
-    return `<a href="${url}" target="_blank" rel="noopener" class="card-error">
-      <span style="font-size:1.4rem;flex-shrink:0;">🔗</span>
-      <div>
-        <div style="font-weight:600;color:var(--navy);margin-bottom:4px;">Preview unavailable</div>
-        <div class="card-error-url">${domain}</div>
-        <div style="font-size:0.75rem;margin-top:4px;color:var(--gray);">Click to open article</div>
-      </div>
-      <span style="margin-left:auto;color:var(--amber);font-weight:700;">→</span>
-    </a>`;
+  function renderAll() {
+    const featuredEl = document.getElementById('featured-container');
+    const gridEl     = document.getElementById('news-grid');
+    const filterEl   = document.getElementById('outlet-filter');
+
+    if (!ARTICLES.length) return;
+
+    featuredEl.innerHTML = buildFeatured(ARTICLES[0]);
+    const rest = ARTICLES.slice(1);
+    gridEl.innerHTML = rest.map(buildCard).join('');
+
+    // Outlet filter
+    const publishers = ['All', ...new Set(ARTICLES.map(a => a.publisher))];
+    filterEl.innerHTML = publishers.map(p =>
+      `<button class="outlet-btn${p === 'All' ? ' active' : ''}" data-pub="${p}">${p}</button>`
+    ).join('');
+
+    filterEl.addEventListener('click', e => {
+      const btn = e.target.closest('.outlet-btn');
+      if (!btn) return;
+      filterEl.querySelectorAll('.outlet-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const pub = btn.dataset.pub;
+      gridEl.querySelectorAll('.news-card-auto').forEach(card => {
+        card.style.display = (pub === 'All' || card.dataset.publisher === pub) ? '' : 'none';
+      });
+    });
   }
 
-  async function fetchPreview(item) {
-    const url = typeof item === 'string' ? item : item.url;
-    const ov  = typeof item === 'object' ? item : {};
-    if (ov.title && ov.description) return { ...ov, url };
-    try {
-      const r = await fetch(MICROLINK_API + encodeURIComponent(url));
-      if (!r.ok) throw new Error(r.status);
-      const j = await r.json();
-      if (j.status !== 'success') throw new Error('api');
-      const d = j.data;
-      return {
-        url,
-        title:       ov.title       || d.title       || null,
-        description: ov.description || d.description || null,
-        image:       ov.image       || (d.image?.url) || null,
-        publisher:   ov.publisher   || d.publisher   || null,
-        date:        ov.date        || d.date        || null,
-      };
-    } catch (e) {
-      return { url, error: true, ...ov };
-    }
-  }
+  // Make placeholderHTML available globally for onerror fallback
+  window.placeholderHTML = placeholderHTML;
 
-  async function render() {
-    const featuredEl  = document.getElementById('featured-container');
-    const gridEl      = document.getElementById('news-grid');
-    const emptyEl     = document.getElementById('empty-state');
-    const featSection = document.getElementById('featured-section');
-    const archSection = document.getElementById('archive-section');
-
-    if (!ARTICLES.length) {
-      featuredEl.innerHTML = '';
-      gridEl.innerHTML = '';
-      featSection.style.display = 'none';
-      emptyEl.classList.remove('hidden');
-      return;
-    }
-
-    // Fetch all in parallel
-    const all = await Promise.all(ARTICLES.map(fetchPreview));
-    const [first, ...rest] = all;
-
-    // Featured card
-    featuredEl.innerHTML = first.error ? buildError(first.url) : buildFeatured(first, first.url);
-
-    // Archive grid
-    if (rest.length === 0) {
-      archSection.style.display = 'none';
-    } else {
-      gridEl.innerHTML = rest.map(p => p.error ? buildError(p.url) : buildCard(p, p.url)).join('');
-    }
-  }
-
-  render();
+  renderAll();
   </script>
 </body>
 </html>
