@@ -96,6 +96,8 @@ const SCHOOLS = [
     cluster: "Chamblee",
     address: "1200 Ashford Park Dr NE, Brookhaven, GA 30319",
     page: "schools/ashford-park.html",
+    externalUrl: "https://ashfordparkparents.com/",
+    externalLabel: "Visit AshfordParkParents.com",
     blurb: "High-performing Brookhaven school ranked #7 in DeKalb County.",
     sapAction: "Proposed to convert to ELC (Early Learning Center)",
     sapNote: "Facility significantly smaller than the district's desired minimum size of 600 seats (capacity 480). Site (7.02 acres) cannot be expanded to meet future needs. This intent is to use the Ashford Park facility to serve students in some way — the site is not adequate for a PK–5 elementary school.",
@@ -812,36 +814,64 @@ function primaryColor(school) {
 }
 
 function schoolCard(school, prefix) {
-  const p = (prefix !== undefined) ? prefix : '';
-  const isPending = getStatuses(school).includes('pending');
-  const isNotClosing = getStatuses(school).includes('not_closing');
-  const tag   = isPending ? 'div' : 'a';
-  const hattr = isPending ? '' : `href="${p}${school.page}"`;
-  const enrollment = school.enrollment > 0
-    ? `<div class="school-card-enrollment">Enrollment: <strong>${school.enrollment.toLocaleString()}</strong></div>`
-    : '';
-  const newBadge = school.sapAction && school.sapAction.includes('NEW')
-    ? `<span style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;background:var(--red);color:white;padding:2px 6px;border-radius:2px;margin-left:4px;">NEW Rnd 2</span>`
+  const isPending   = getStatuses(school).includes('pending');
+  const isNotClosing= getStatuses(school).includes('not_closing');
+
+  // Cards are only clickable when the school has an external community site
+  const extUrl   = school.externalUrl  || null;
+  const extLabel = school.externalLabel || 'Additional Information →';
+  const isClickable = !!extUrl && !isPending;
+
+  const tag   = isClickable ? 'a' : 'div';
+  const hattr = isClickable
+    ? `href="${extUrl}" target="_blank" rel="noopener"`
     : '';
 
+  const enrollment = school.enrollment > 0
+    ? `<div style="font-size:0.78rem;color:var(--text-light);padding-top:8px;border-top:1px solid var(--gray-light);margin-top:8px;">
+        Enrollment: <strong style="color:var(--navy);">${school.enrollment.toLocaleString()}</strong>
+       </div>`
+    : '';
+
+  const newBadge = school.sapAction && school.sapAction.includes('NEW')
+    ? `<span style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;background:var(--red);color:white;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;">NEW</span>`
+    : '';
+
+  // SAP detail block — action summary sentence + note
+  const sapDetail = school.sapAction ? `
+      <div style="font-size:0.75rem;background:var(--cream);border-left:3px solid var(--amber);padding:7px 10px;border-radius:0 3px 3px 0;margin-bottom:8px;line-height:1.5;">
+        <strong style="font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:3px;">SAP Round 2 Proposal</strong>
+        <span style="color:var(--navy);font-weight:600;">${school.sapAction}.</span>
+        ${school.sapNote
+          ? `<span style="color:var(--text-light);"> ${school.sapNote}</span>`
+          : ' No final decision has been made. A board vote is expected Fall 2026.'}
+      </div>` : '';
+
+  // External link footer — only shown when a URL exists
+  const extFooter = extUrl ? `
+      <div style="margin-top:auto;padding-top:10px;border-top:1px solid var(--gray-light);display:flex;align-items:center;gap:6px;font-size:0.78rem;font-weight:600;color:var(--amber);">
+        <span>🔗</span> ${extLabel}
+      </div>` : '';
+
+  // Not-clickable cards get a subtle cursor and no hover lift
+  const cardStyle = !isClickable
+    ? `style="cursor:default;"` : '';
+
   return `
-    <${tag} class="school-card${isPending ? ' school-card-pending' : ''}${isNotClosing ? ' school-card-not-closing' : ''}" ${hattr}
+    <${tag} class="school-card${isPending ? ' school-card-pending' : ''}${isNotClosing ? ' school-card-not-closing' : ''}${!isClickable ? ' school-card-static' : ''}" ${hattr} ${cardStyle}
       data-status="${getStatuses(school).join(',')}"
       data-cluster="${school.cluster}"
       data-on-list="${school.onClosureList || false}">
       <div class="school-card-status ${primaryColor(school)}"></div>
-      <div class="school-card-body">
+      <div class="school-card-body" style="display:flex;flex-direction:column;height:100%;">
         <div class="school-card-name">${school.name}${newBadge}</div>
-        <div class="school-card-meta">${school.grades} · ${school.cluster} Cluster</div>
-        <div class="school-card-badge" style="display:flex;flex-wrap:wrap;gap:2px;margin-bottom:8px;">
+        <div class="school-card-meta" style="margin-bottom:8px;">${school.grades} · ${school.cluster} Cluster</div>
+        <div style="display:flex;flex-wrap:wrap;gap:2px;margin-bottom:10px;">
           ${statusBadges(school)}
         </div>
-        <p style="font-size:0.8rem;color:var(--text-light);flex:1;margin-bottom:8px;">${school.blurb}</p>
-        <div style="font-size:0.75rem;background:var(--cream);border-left:3px solid var(--amber);padding:6px 10px;border-radius:0 3px 3px 0;margin-bottom:8px;">
-          <strong style="font-family:var(--font-mono);letter-spacing:0.05em;text-transform:uppercase;font-size:0.62rem;color:var(--gray);">SAP Action: </strong>${school.sapAction}
-          ${school.sapNote ? `<div style="margin-top:4px;color:var(--text-light);font-size:0.7rem;">${school.sapNote}</div>` : ''}
-        </div>
+        ${sapDetail}
         ${enrollment}
+        ${extFooter}
       </div>
     </${tag}>`;
 }
