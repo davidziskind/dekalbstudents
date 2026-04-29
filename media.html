@@ -389,6 +389,17 @@
     // ── Add newest articles at the TOP of this list ─────────────
 
     {
+      url: "docs/Dunwoody_SAP_Letter_4_27_26.pdf",
+      title: "Georgia State Senator Sally Harrell Writes to DCSD: Round 2 SAP Fails Dunwoody Students",
+      publisher: "Georgia State Senate — District 40",
+      pubKey: "gov",
+      pubAbbr: "GA State Senate",
+      date: "April 27, 2026",
+      type: "Official Letter",
+      description: "Senator Sally Harrell formally opposes Round 2 SAP scenarios for the Dunwoody cluster: \"The Round 2 scenario ignores overwhelmingly negative community feedback and empirical data.\" She finds there are not enough seats at DES and Austin to absorb Vanderlyn's 473 students, calls forcing families to move schools twice before middle school \"utterly draconian,\" and demands no closure occur before capital expansion projects are completed and seats actually exist.",
+      image: null
+    },
+    {
       url: "https://www.ajc.com/education/2026/04/dekalb-is-bracing-for-school-closures-these-parents-say-its-the-wrong-move/",
       title: "DeKalb is bracing for school closures. These parents say it's the wrong move.",
       publisher: "Atlanta Journal-Constitution",
@@ -709,6 +720,7 @@
     ajc:   { cls: "pub-ajc",   abbr: "AJC" },
     wabe:  { cls: "pub-wabe",  abbr: "WABE 90.1" },
     cbs:   { cls: "pub-cbs",   abbr: "CBS News" },
+    gov:   { cls: "pub-gov",   abbr: "GA State Senate" },
   };
 
   function imgEl(a, featured) {
@@ -730,8 +742,9 @@
   }
 
   function metaEl(a) {
+    const isOfficial = a.type === 'Official Letter' || a.type === 'Statement';
     const type = a.type
-      ? `<span class="card-type">${a.type}</span>`
+      ? `<span class="${isOfficial ? 'card-type-official' : 'card-type'}">${a.type}</span>`
       : '';
     return `
       <span class="card-publisher">${a.publisher}</span>
