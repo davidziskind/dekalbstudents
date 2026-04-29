@@ -1067,3 +1067,16 @@ p:last-child { margin-bottom: 0; }
   user-select: none;
 }
 .filter-toggle input { cursor: pointer; }
+
+/* ── Static (non-clickable) school cards ───────────────────── */
+.school-card-static {
+  cursor: default;
+}
+.school-card-static:hover {
+  box-shadow: none;
+  transform: none;
+}
+/* Clickable cards (those with externalUrl) get a subtle link cue */
+a.school-card:not(.school-card-static):hover .school-card-name {
+  color: var(--amber);
+}
