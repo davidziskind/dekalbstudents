@@ -161,6 +161,8 @@ const SCHOOLS = [
     capacity: 0,
     cluster: "Lakeside",
     address: "UPDATE",
+    externalUrl: "https://www.savehendersonmill.com/",
+    externalLabel: "Visit SaveHendersonMill.com",
     page: "schools/henderson-mill.html",
     blurb: "Lakeside cluster elementary proposed for closure due to low building adequacy.",
     sapAction: "Close or Repurpose",
@@ -176,6 +178,8 @@ const SCHOOLS = [
     capacity: 0,
     cluster: "Lakeside",
     address: "UPDATE",
+    externalUrl: "https://www.facebook.com/groups/saveoge/",
+    externalLabel: "Save Oak Grove — Facebook Group",
     page: "schools/oak-grove.html",
     blurb: "Beloved Lakeside cluster neighborhood school proposed for closure.",
     sapAction: "Close or Repurpose",
@@ -827,11 +831,8 @@ function schoolCard(school, prefix) {
     ? `href="${extUrl}" target="_blank" rel="noopener"`
     : '';
 
-  const enrollment = school.enrollment > 0
-    ? `<div style="font-size:0.78rem;color:var(--text-light);padding-top:8px;border-top:1px solid var(--gray-light);margin-top:8px;">
-        Enrollment: <strong style="color:var(--navy);">${school.enrollment.toLocaleString()}</strong>
-       </div>`
-    : '';
+  // Enrollment display removed per user request
+  const enrollment = '';
 
   const newBadge = school.sapAction && school.sapAction.includes('NEW')
     ? `<span style="font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;background:var(--red);color:white;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:middle;">NEW</span>`
