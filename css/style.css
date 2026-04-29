@@ -1080,3 +1080,24 @@ p:last-child { margin-bottom: 0; }
 a.school-card:not(.school-card-static):hover .school-card-name {
   color: var(--amber);
 }
+
+/* ── Government / official document card ────────────────────── */
+.pub-gov {
+  background: linear-gradient(135deg, #1a3a5c 0%, #2a5298 100%);
+  color: #ffffff;
+}
+.pub-gov .pub-abbr { color: #f0d060; font-size: 1rem; }
+
+/* Official letter type badge */
+.card-type-official {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: #f0d060;
+  color: #1a3a5c;
+  font-weight: 700;
+  border: none;
+}
